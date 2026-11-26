@@ -7,6 +7,7 @@ di pratica e le pubblica come JSON statici su GitHub Pages.
 - Endpoint: `https://calogerosorce.github.io/news-legali/api/<area>.json`
   aree: penale, civile, famiglia, lavoro, tributario, amministrativo, immigrazione, professione, ue, generale, all
 - Stato fonti: `api/status.json` (pagina leggibile: `index.html`)
+- Profili studi: `config/studi.json` → `api/studi/<studio>.json` (nel widget: `data-studio="<studio>"`). Cambiando le aree qui, il sito del cliente si aggiorna da solo.
 - Widget da incollare nei siti: `widget/news-legali-snippet.html` (demo in `demo/`)
 - Spiegazioni "in breve" con AI: opzionali, si attivano aggiungendo il secret `ANTHROPIC_API_KEY`
 - Allarme: se una fonte non risponde per oltre 72 ore il workflow fallisce e GitHub invia un'email.

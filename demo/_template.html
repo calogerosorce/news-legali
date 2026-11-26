@@ -47,6 +47,7 @@
     if(q.get('areas')){ sel.value=q.get('areas'); sec.setAttribute('data-areas',q.get('areas')); }
     else sec.setAttribute('data-areas', sel.value);
     if(q.get('endpoint')) sec.setAttribute('data-endpoint', q.get('endpoint'));
+    if(q.get('studio')) sec.setAttribute('data-studio', q.get('studio'));
     if(q.get('dark')) document.body.classList.add('dark');
     sel.onchange=function(){ q.set('areas',sel.value); location.search=q.toString(); };
     document.getElementById('theme').onclick=function(){ document.body.classList.contains('dark')?q.delete('dark'):q.set('dark','1'); location.search=q.toString(); };

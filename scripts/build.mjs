@@ -19,6 +19,7 @@ const KEEP_DAYS = 150;       // quanto restano in archivio le notizie
 const MAX_ARCHIVE = 2500;
 const PER_AREA = 40;         // notizie per file api/<area>.json
 const ALL_LIMIT = 120;
+const PER_STUDIO = 80;      // notizie per file api/studi/<studio>.json
 const STALE_HOURS = 72;      // fonte in errore da più di N ore => il workflow fallisce (email da GitHub)
 
 const offline = process.argv.includes('--offline');
@@ -120,6 +121,21 @@ async function main() {
     const list = items.filter((i) => i.areas?.includes(a)).slice(0, PER_AREA).map(pub);
     await writeFile(path.join(API, `${a}.json`), JSON.stringify({ ...meta({ area: a, label: AREAS[a]?.label || 'Generale' }), items: list }));
   }
+  // Profili degli studi clienti: un file per studio con le sue materie (config/studi.json)
+  const studi = await readJson(path.join(ROOT, 'config', 'studi.json'), {});
+  await mkdir(path.join(API, 'studi'), { recursive: true });
+  for (const [slug, cfg] of Object.entries(studi)) {
+    if (slug.startsWith('_') || !/^[a-z0-9-]+$/.test(slug)) continue;
+    const aree = (cfg.aree || []).filter((a) => areaIds.includes(a));
+    if (!aree.length) { log(`⚠ studio ${slug}: nessuna area valida`); continue; }
+    const list = items.filter((i) => i.areas?.some((a) => aree.includes(a))).slice(0, PER_STUDIO).map(pub);
+    await writeFile(path.join(API, 'studi', `${slug}.json`), JSON.stringify({
+      ...meta({ studio: slug, nome: cfg.nome || slug }),
+      aree: aree.map((a) => ({ id: a, label: AREAS[a]?.label || 'Novità normative' })),
+      items: list,
+    }));
+  }
+
   const areasIndex = areaIds.map((a) => ({
     id: a, label: AREAS[a]?.label || 'Generale',
     count: items.filter((i) => i.areas?.includes(a)).length,

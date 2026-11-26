@@ -2,13 +2,15 @@
      NEWS LEGALI AUTOMATICHE — sezione da incollare nell'HTML del cliente
      Hub: https://calogerosorce.github.io/news-legali/
      Configurazione (attributi data-* della <section>):
+       data-studio    profilo dello studio sull'hub (config/studi.json): le materie si gestiscono
+                      dall'hub, senza toccare questo HTML. Se manca o non risponde, usa data-areas.
        data-areas     aree separate da virgola: penale, civile, famiglia, lavoro, tributario,
                       amministrativo, immigrazione, professione, ue, generale
        data-limit     notizie mostrate all'inizio (default 6); "Mostra altre" ne aggiunge altrettante
        data-endpoint  base URL dell'hub (non cambiarlo)
      Colori: modifica le variabili --ln-* nel blocco <style> per adattarle al sito.
      ============================================================ -->
-<section id="news" class="ln-news" data-areas="penale,professione" data-limit="6"
+<section id="news" class="ln-news" data-studio="" data-areas="penale,professione" data-limit="6"
          data-endpoint="https://calogerosorce.github.io/news-legali/api/" aria-labelledby="ln-title">
   <div class="ln-wrap">
     <header class="ln-head">
@@ -163,10 +165,36 @@
       }
     }
 
-    var key = areas.join(',');
+    var studio = (root.getAttribute('data-studio') || '').trim();
+    var key = studio ? 'studio:' + studio : areas.join(',');
     var cached = cacheGet(key);
-    if (cached && cached.items && cached.items.length) apply(cached);
+    if (cached && cached.items && cached.items.length) {
+      if (cached.aree) areas = cached.aree;
+      apply(cached);
+    }
 
+    function done(data) {
+      cacheSet(key, data);
+      apply(data);
+    }
+
+    // 1) profilo dello studio sull'hub; 2) riserva: file per area
+    var viaStudio = !studio ? Promise.resolve(null) :
+      fetch(base + 'studi/' + encodeURIComponent(studio) + '.json', { cache: 'no-cache' })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (d) {
+          if (!d || !d.items || !d.items.length) return null;
+          areas = (d.aree || []).map(function (a) { LABELS[a.id] = LABELS[a.id] || a.label; return a.id; });
+          return { updatedAt: d.updatedAt, items: d.items, aree: areas };
+        })
+        .catch(function () { return null; });
+
+    viaStudio.then(function (data) {
+      if (data) return done(data);
+      loadAreas();
+    });
+
+    function loadAreas() {
     var files = areas.indexOf('all') > -1 ? ['all'] : areas;
     Promise.all(files.map(function (a) {
       return fetch(base + encodeURIComponent(a) + '.json', { cache: 'no-cache' })
@@ -189,10 +217,9 @@
         return;
       }
       items.sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
-      var data = { updatedAt: updatedAt, items: items };
-      cacheSet(key, data);
-      apply(data);
+      done({ updatedAt: updatedAt, items: items });
     });
+    }
   }
 
   function boot() { [].forEach.call(document.querySelectorAll('.ln-news'), init); }
