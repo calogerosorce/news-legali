@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-26T11:32:37.636Z",
+ "updatedAt": "2026-11-26T11:43:00.896Z",
  "totalItems": 58,
  "ai": {
   "enabled": false,
@@ -10,58 +10,61 @@
    "id": "gu-sg",
    "label": "Gazzetta Ufficiale",
    "url": "https://www.gazzettaufficiale.it/rss/SG",
-   "lastOk": "2026-11-26T11:32:37.636Z",
+   "lastOk": "2026-11-26T11:43:00.896Z",
    "lastCount": 2,
-   "lastAdded": 2,
+   "lastAdded": 0,
    "lastError": null,
-   "lastAttempt": "2026-11-26T11:32:37.636Z"
+   "lastAttempt": "2026-11-26T11:43:00.896Z"
   },
   {
    "id": "gu-s1",
    "label": "Corte costituzionale (G.U. 1ª S.S.)",
    "url": "https://www.gazzettaufficiale.it/rss/S1",
-   "lastError": "https://www.gazzettaufficiale.it/rss/S1 -> fetch failed",
-   "lastAttempt": "2026-11-26T11:32:37.636Z"
+   "lastOk": "2026-11-26T11:43:00.896Z",
+   "lastCount": 0,
+   "lastAdded": 0,
+   "lastError": null,
+   "lastAttempt": "2026-11-26T11:43:00.896Z"
   },
   {
    "id": "cass-pen",
    "label": "Cassazione penale",
    "url": "https://www.cortedicassazione.it/it/giurisprudenza_penale.page",
-   "lastOk": "2026-11-26T11:32:37.636Z",
+   "lastOk": "2026-11-26T11:43:00.896Z",
    "lastCount": 13,
-   "lastAdded": 13,
+   "lastAdded": 0,
    "lastError": null,
-   "lastAttempt": "2026-11-26T11:32:37.636Z"
+   "lastAttempt": "2026-11-26T11:43:00.896Z"
   },
   {
    "id": "cass-civ",
    "label": "Cassazione civile",
    "url": "https://www.cortedicassazione.it/it/giurisprudenza_civile.page",
-   "lastOk": "2026-11-26T11:32:37.636Z",
+   "lastOk": "2026-11-26T11:43:00.896Z",
    "lastCount": 15,
-   "lastAdded": 15,
+   "lastAdded": 0,
    "lastError": null,
-   "lastAttempt": "2026-11-26T11:32:37.636Z"
+   "lastAttempt": "2026-11-26T11:43:00.896Z"
   },
   {
    "id": "curia",
    "label": "Corte di giustizia UE",
    "url": "https://curia.europa.eu/site/rss.jsp?lang=it&secondLang=en",
-   "lastOk": "2026-11-26T11:32:37.636Z",
+   "lastOk": "2026-11-26T11:43:00.896Z",
    "lastCount": 8,
-   "lastAdded": 8,
+   "lastAdded": 0,
    "lastError": null,
-   "lastAttempt": "2026-11-26T11:32:37.636Z"
+   "lastAttempt": "2026-11-26T11:43:00.896Z"
   },
   {
    "id": "ade",
    "label": "Agenzia delle Entrate",
    "url": "https://www.agenziaentrate.gov.it/portale/c/portal/rss/entrate?idrss=0753fcb1-1a42-4f8c-f40d-02793c6aefb4",
-   "lastOk": "2026-11-26T11:32:37.636Z",
+   "lastOk": "2026-11-26T11:43:00.896Z",
    "lastCount": 20,
-   "lastAdded": 20,
+   "lastAdded": 0,
    "lastError": null,
-   "lastAttempt": "2026-11-26T11:32:37.636Z"
+   "lastAttempt": "2026-11-26T11:43:00.896Z"
   }
  ]
 }

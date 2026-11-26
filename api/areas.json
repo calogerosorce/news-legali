@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-26T11:32:37.636Z",
+ "updatedAt": "2026-11-26T11:43:00.896Z",
  "areas": [
   {
    "id": "penale",
@@ -46,7 +46,7 @@
   {
    "id": "professione",
    "label": "Professione forense e giustizia",
-   "count": 1,
+   "count": 2,
    "url": "api/professione.json"
   },
   {
@@ -58,7 +58,7 @@
   {
    "id": "generale",
    "label": "Generale",
-   "count": 1,
+   "count": 0,
    "url": "api/generale.json"
   }
  ]

@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-26T11:32:37.636Z",
+ "updatedAt": "2026-11-26T11:43:00.896Z",
  "items": [
   {
    "id": "curia-1000089717",
@@ -39,12 +39,12 @@
    "sourceLabel": "Gazzetta Ufficiale",
    "kind": "Decreto legislativo",
    "title": "Riforma dell'ordinamento forense in attuazione della legge 28 luglio 2026, n. 137, recante delega al Governo per la riforma dell'ordinamento forense.",
-   "subtitle": "DECRETO LEGISLATIVO 25 novembre 2026, n. 216 — G.U. Serie Generale n. 275 del 25-11-2026",
+   "subtitle": "Decreto legislativo 25 novembre 2026, n. 216 — G.U. Serie Generale n. 275 del 25-11-2026",
    "summary": "",
    "url": "https://www.gazzettaufficiale.it/eli/id/2026/11/25/26G00237/SG",
    "date": "2026-11-25",
    "areas": [
-    "generale"
+    "professione"
    ],
    "weight": 3,
    "firstSeen": "2026-11-26T11:32:37.636Z"
@@ -70,7 +70,7 @@
    "id": "gu-26A06124",
    "source": "gu-sg",
    "sourceLabel": "Gazzetta Ufficiale",
-   "kind": "Provvedimento",
+   "kind": "Decreto ministeriale",
    "title": "Adeguamento delle tariffe emanate per l'applicazione dell'articolo 13 della legge 12 agosto 1962, n. 1338, sulla base di coefficienti attuariali aggiornati.",
    "subtitle": "Ministero del lavoro e delle politiche sociali - decreto 26 ottobre 2026 — G.U. Serie Generale n. 275 del 25-11-2026",
    "summary": "",
