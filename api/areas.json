@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-26T11:48:18.466Z",
+ "updatedAt": "2026-11-26T11:50:04.838Z",
  "areas": [
   {
    "id": "penale",
@@ -28,7 +28,7 @@
   {
    "id": "tributario",
    "label": "Tributario e fiscale",
-   "count": 32,
+   "count": 31,
    "url": "api/tributario.json"
   },
   {
@@ -58,7 +58,7 @@
   {
    "id": "generale",
    "label": "Generale",
-   "count": 24,
+   "count": 22,
    "url": "api/generale.json"
   }
  ]
