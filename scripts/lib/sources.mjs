@@ -7,6 +7,16 @@ import {
 } from './util.mjs';
 import { classify } from './areas.mjs';
 
+// Ogni notizia porta con sé il testo usato per classificarla (_ct) e le aree forzate (_fa),
+// così il build può riclassificare tutto l'archivio quando le parole chiave cambiano.
+function withClass(item, text, forced = []) {
+  return Object.assign(item, { _ct: text, _fa: forced });
+}
+
+export function isGuNoise(text) {
+  return GU_RUMORE.some((r) => r.test(text));
+}
+
 // ---------------------------------------------------------------- Gazzetta Ufficiale
 // Feed: https://www.gazzettaufficiale.it/rss/SG (ultimo numero della Serie Generale)
 // <title> = tipo atto + data + numero; <content:encoded> = rubrica (oggetto dell'atto)
@@ -30,6 +40,9 @@ const GU_RUMORE = [
   /cambi di riferimento|tassi di cambio|valute/i, /protezione civile.*ordinanza/i,
   /stato di emergenza/i, /\brettifica\b|\berrata[- ]corrige\b|comunicato relativo/i,
   /emissione di francobolli|francobollo/i, /graduatori/i, /lotteri/i,
+  /^nomina\b/i, /\bnomina (del|della|di) (dott|prof|sig|avv|ing|gen)/i, /commissario straordinario/i,
+  /consiglio comunale/i, /casa religiosa|ente ecclesiastico|riconoscimento della personalit[aà] giuridica/i,
+  /notai dispensandi|concorso notarile|trasferimento di notai/i, /\bencomio\b|onorificenz/i,
 ];
 
 function guHead(h) {
@@ -73,7 +86,7 @@ function makeSG({ head, emettitore = '', desc, code, pubDate, issueLabel, url })
   if (!tipo && !(emittenteOk && areas.length)) return null;
   if (!areas.length) areas.push('generale');
   const fullHead = emettitore && !head.toUpperCase().startsWith(emettitore.toUpperCase()) ? `${emettitore} - ${head}` : head;
-  return {
+  return withClass({
     id: `gu-${code}`,
     source: 'gu-sg',
     sourceLabel: 'Gazzetta Ufficiale',
@@ -85,7 +98,7 @@ function makeSG({ head, emettitore = '', desc, code, pubDate, issueLabel, url })
     date: sanitizeDate(pubDate || italianDate(head)),
     areas,
     weight: tipo ? 3 : 1,
-  };
+  }, text);
 }
 
 /** Notizia per una decisione della Corte costituzionale (G.U. 1ª Serie Speciale). */
@@ -100,7 +113,7 @@ function makeS1({ head, desc, code, pubDate, issueLabel, url }) {
   const areas = classify(`${head} ${body}`);
   if (!areas.length) areas.push('generale');
   const num = (head.match(/n\.\s*(\d+)/i) || [])[1];
-  return {
+  return withClass({
     id: `gu-${code}`,
     source: 'gu-s1',
     sourceLabel: 'Corte costituzionale',
@@ -112,7 +125,7 @@ function makeS1({ head, desc, code, pubDate, issueLabel, url }) {
     date: sanitizeDate(pubDate),
     areas,
     weight: 3,
-  };
+  }, `${head} ${body}`);
 }
 
 /**
@@ -263,7 +276,7 @@ function parseCassazioneCards(html, settore) {
     const kind = (estremi.match(/^(Sentenze|Sentenza|Ordinanze|Ordinanza interlocutoria|Ordinanza|Decreto|Relazione|Questione[^n]*)/i) || [])[1] || 'Provvedimento';
     const forced = settore === 'penale' ? ['penale'] : ['civile'];
     const areas = classify(`${materia} ${massima}`, forced);
-    out.push({
+    out.push(withClass({
       id: `cass-${href[2]}`,
       source: settore === 'penale' ? 'cass-pen' : 'cass-civ',
       sourceLabel: 'Corte di Cassazione',
@@ -275,7 +288,7 @@ function parseCassazioneCards(html, settore) {
       date: sanitizeDate(pubblicata || deposito),
       areas,
       weight: 2,
-    });
+    }, `${materia} ${massima}`, forced));
   }
   return out;
 }
@@ -328,7 +341,7 @@ export const curiaUE = {
         .replace(/\btribunale\b/gi, ' ');
       const areas = classify(ctx, ['ue']);
       const guid = clean(it.guid) || it.link;
-      out.push({
+      out.push(withClass({
         id: `curia-${(guid.match(/p1_(\d+)/) || [])[1] || guid}`,
         source: this.id,
         sourceLabel: 'Corte di giustizia UE',
@@ -340,7 +353,7 @@ export const curiaUE = {
         date: sanitizeDate(rfcDate(it.pubDate) || italianDate(head)),
         areas,
         weight: 1,
-      });
+      }, ctx, ['ue']));
     }
     return out;
   },

@@ -6,8 +6,8 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SOURCES } from './lib/sources.mjs';
-import { AREAS, AREA_IDS } from './lib/areas.mjs';
+import { SOURCES, isGuNoise } from './lib/sources.mjs';
+import { AREAS, AREA_IDS, classify } from './lib/areas.mjs';
 import { enrichWithAI } from './lib/ai.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -84,6 +84,14 @@ async function main() {
       }
       report.push({ id: s.id, ...state[s.id] });
     });
+  }
+
+  // riclassifica tutto l'archivio con le regole attuali e scarta il rumore G.U.
+  for (const [id, i] of byId) {
+    if (i._ct == null) continue;
+    if (i.source === 'gu-sg' && isGuNoise(i._ct)) { byId.delete(id); continue; }
+    const areas = classify(i._ct, i._fa || []);
+    i.areas = areas.length ? areas : ['generale'];
   }
 
   // pulizia archivio

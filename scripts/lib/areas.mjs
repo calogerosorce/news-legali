@@ -41,15 +41,18 @@ export const AREAS = {
   famiglia: {
     label: 'Famiglia e minori',
     keywords: [
-      'famiglia', 'familiar', 'separazione personale', 'separazione dei coniugi', 'separazione consensuale',
-      'divorzio', 'divorzil', 'scioglimento del matrimonio', 'cessazione degli effetti civili',
-      'matrimonio', 'coniug', 'affidamento dei figli', 'affidamento condiviso', 'affido',
-      'mantenimento', 'assegno di mantenimento', 'assegno divorzile', 'casa familiare',
-      '=minori', 'minorenn', 'filiazione', 'figli', 'responsabilita genitoriale', 'genitori',
-      'adozione', 'adozioni', 'unione civile', 'unioni civili', 'convivenz',
-      'violenza domestica', 'codice rosso', 'tribunale per i minorenni',
-      'tribunale per le persone, per i minorenni e per le famiglie', 'amministrazione di sostegno',
-      'interdizione', 'tutela del minore', 'sottrazione internazionale',
+      'famiglia', 'familiar', '!separazione personale', '!separazione dei coniugi', '!separazione consensuale',
+      '!divorzio', '!divorzil', '!scioglimento del matrimonio', '!cessazione degli effetti civili',
+      'matrimonio', 'coniug', '!affidamento dei figli', '!affidamento condiviso', '!adozione e affidamento',
+      '!assegno di mantenimento', '!assegno divorzile', '!casa familiare', 'mantenimento',
+      '=minori', '!minorenn', '!filiazione', '=figli', '=figlio', '=figlia', '!responsabilita genitoriale', 'genitori',
+      '!adozione di minori', '!adozione del minore', '!adozione di maggiorenni', '!adozioni internazionali',
+      '!adozione in casi particolari', '!stato di adottabilita', 'adottiv', 'adottand',
+      '!unione civile', '!unioni civili', '!unite civilmente', 'convivenz',
+      '!violenza domestica', '!codice rosso', '!tribunale per i minorenni',
+      '!tribunale per le persone, per i minorenni e per le famiglie', '!amministrazione di sostegno',
+      '!amministratore di sostegno', 'interdizione', '!tutela del minore', '!sottrazione internazionale',
+      'maltrattamenti contro familiari',
     ],
   },
   lavoro: {
@@ -59,7 +62,7 @@ export const AREAS = {
       'contratto collettivo', 'ccnl', 'previdenz', 'pension', '=inps', '=inail',
       'infortunio sul lavoro', 'infortuni sul lavoro', 'malattia professionale',
       'sicurezza sul lavoro', 'sicurezza nei luoghi di lavoro', 'sindacal', 'sciopero',
-      'rapporto di lavoro', 'datore di lavoro', 'dipendent', 'subordinat', 'mansioni',
+      'rapporto di lavoro', 'datore di lavoro', 'dipendent', 'lavoro subordinato', 'mansioni',
       'demansionamento', 'mobbing', 'trattamento di fine rapporto', '=tfr', 'contratto a termine',
       'somministrazione di lavoro', 'cassa integrazione', 'naspi', 'pubblico impiego',
       'impiego pubblico', 'assistenza sociale', 'previdenza e assistenza', 'contributi previdenziali',
@@ -165,7 +168,7 @@ export function scoreAreas(text) {
  */
 export function classify(text, forced = []) {
   const scores = scoreAreas(text);
-  const weak = { professione: 2, amministrativo: 2, civile: 2, ue: 1 };
+  const weak = { professione: 2, amministrativo: 2, civile: 2, famiglia: 2, ue: 1 };
   const areas = new Set(forced);
   for (const [id, n] of Object.entries(scores)) {
     if (n >= (weak[id] || 1)) areas.add(id);

@@ -1,64 +1,64 @@
 {
- "updatedAt": "2026-11-26T11:46:06.681Z",
+ "updatedAt": "2026-11-26T11:48:07.201Z",
  "areas": [
   {
    "id": "penale",
    "label": "Penale",
-   "count": 26,
+   "count": 14,
    "url": "api/penale.json"
   },
   {
    "id": "civile",
    "label": "Civile",
-   "count": 17,
+   "count": 15,
    "url": "api/civile.json"
   },
   {
    "id": "famiglia",
    "label": "Famiglia e minori",
-   "count": 10,
+   "count": 2,
    "url": "api/famiglia.json"
   },
   {
    "id": "lavoro",
    "label": "Lavoro e previdenza",
-   "count": 22,
+   "count": 7,
    "url": "api/lavoro.json"
   },
   {
    "id": "tributario",
    "label": "Tributario e fiscale",
-   "count": 32,
+   "count": 26,
    "url": "api/tributario.json"
   },
   {
    "id": "amministrativo",
    "label": "Amministrativo",
-   "count": 9,
+   "count": 1,
    "url": "api/amministrativo.json"
   },
   {
    "id": "immigrazione",
    "label": "Immigrazione e cittadinanza",
-   "count": 6,
+   "count": 1,
    "url": "api/immigrazione.json"
   },
   {
    "id": "professione",
    "label": "Professione forense e giustizia",
-   "count": 6,
+   "count": 1,
    "url": "api/professione.json"
   },
   {
    "id": "ue",
    "label": "Diritto UE",
-   "count": 16,
+   "count": 12,
    "url": "api/ue.json"
   },
   {
    "id": "generale",
    "label": "Generale",
-   "count": 24,
+   "count": 0,
    "url": "api/generale.json"
   }
  ]

@@ -6,36 +6,7 @@
   "lastCount": 44,
   "lastAdded": 42,
   "lastError": null,
-  "lastAttempt": "2026-11-26T11:46:06.681Z",
-  "memo": {
-   "issues": [
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-10-28&numeroGazzetta=251&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-10-29&numeroGazzetta=252&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-10-30&numeroGazzetta=253&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-10-31&numeroGazzetta=254&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-02&numeroGazzetta=255&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-03&numeroGazzetta=256&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-04&numeroGazzetta=257&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-05&numeroGazzetta=258&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-06&numeroGazzetta=259&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-07&numeroGazzetta=260&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-09&numeroGazzetta=261&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-10&numeroGazzetta=262&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-11&numeroGazzetta=263&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-12&numeroGazzetta=264&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-13&numeroGazzetta=265&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-14&numeroGazzetta=266&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-16&numeroGazzetta=267&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-17&numeroGazzetta=268&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-18&numeroGazzetta=269&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-19&numeroGazzetta=270&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-20&numeroGazzetta=271&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-21&numeroGazzetta=272&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-23&numeroGazzetta=273&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-24&numeroGazzetta=274&elenco30giorni=true",
-    "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-25&numeroGazzetta=275&elenco30giorni=true"
-   ]
-  }
+  "lastAttempt": "2026-11-26T11:46:06.681Z"
  },
  "gu-s1": {
   "label": "Corte costituzionale (G.U. 1ª S.S.)",
@@ -44,16 +15,7 @@
   "lastCount": 33,
   "lastAdded": 33,
   "lastError": null,
-  "lastAttempt": "2026-11-26T11:46:06.681Z",
-  "memo": {
-   "issues": [
-    "/gazzetta/corte_costituzionale/caricaDettaglio?dataPubblicazioneGazzetta=2026-10-28&numeroGazzetta=43&elenco30giorni=true",
-    "/gazzetta/corte_costituzionale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-04&numeroGazzetta=44&elenco30giorni=true",
-    "/gazzetta/corte_costituzionale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-11&numeroGazzetta=45&elenco30giorni=true",
-    "/gazzetta/corte_costituzionale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-18&numeroGazzetta=46&elenco30giorni=true",
-    "/gazzetta/corte_costituzionale/caricaDettaglio?dataPubblicazioneGazzetta=2026-11-25&numeroGazzetta=47&elenco30giorni=true"
-   ]
-  }
+  "lastAttempt": "2026-11-26T11:46:06.681Z"
  },
  "cass-pen": {
   "label": "Cassazione penale",
