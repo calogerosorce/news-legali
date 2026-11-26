@@ -109,6 +109,8 @@
     // Massime "A - B - C - Applicabilità": titolo breve (A) + testo leggibile (B · C · …)
     function shape(it) {
       var t = (it.title || '').trim(), parts = t.split(/\s+-\s+|\s*-(?=[A-ZÀ-Ý])/);
+      // Corte costituzionale: il primo pezzo è la materia (es. "Reati e pene"), il titolo è il secondo
+      if (it.source === 'gu-s1' && parts.length >= 3) return { topic: parts[0], head: parts[1], text: parts.slice(2).join(' · ') };
       if (parts.length >= 3 && parts[0].length <= 90) return { head: parts[0], text: parts.slice(1).join(' · ') };
       return { head: t, text: '' };
     }
@@ -117,7 +119,7 @@
       var text = it.plain ? it.plain : s.text;
       return '<article class="ln-card"><div class="ln-meta"><span class="ln-kind">' + esc(it.kind) + '</span>' +
         '<time datetime="' + esc(it.date) + '">' + esc(fmt(it.date)) + '</time></div>' +
-        (it.summary ? '<p class="ln-topic">' + esc(it.summary) + '</p>' : '') +
+        ((it.summary || s.topic) ? '<p class="ln-topic">' + esc(it.summary || s.topic) + '</p>' : '') +
         '<h3 class="ln-title">' + esc(s.head) + '</h3>' +
         (text ? '<p class="ln-text">' + esc(text) + '</p>' : '') +
         (it.subtitle ? '<p class="ln-ref">' + esc(it.subtitle) + '</p>' : '') +
