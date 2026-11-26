@@ -152,6 +152,13 @@ async function main() {
     const list = items
       .filter((i) => i.areas?.some((a) => aree.includes(a)))
       .filter((i) => !escludi.length || i.areas.includes(aree[0]) || !i.areas.some((a) => escludi.includes(a)))
+      // la materia principale dello studio viene mostrata per prima (se recente, ultimi 45 giorni)
+      .sort((a, b) => {
+        const recent = daysAgo(45);
+        const pa = a.areas.includes(aree[0]) && a.date >= recent ? 1 : 0;
+        const pb = b.areas.includes(aree[0]) && b.date >= recent ? 1 : 0;
+        return pb - pa || sortItems(a, b);
+      })
       .slice(0, PER_STUDIO).map(pub);
     await writeFile(path.join(API, 'studi', `${slug}.json`), JSON.stringify({
       ...meta({ studio: slug, nome: cfg.nome || slug }),
