@@ -18,6 +18,8 @@ export const AREAS = {
       'procedura penale', 'pubblico ministero', 'giudice per le indagini', 'dibattimento',
       'patteggiamento', 'messa alla prova', 'reati tributari', 'guida in stato di ebbrezza',
       'omissione di soccorso', 'esecuzione penale', 'casellario giudiziale',
+      '!parte civile', '!parti civili', 'persona offesa', '!vittima del reato', '!vittime di reato',
+      '!risarcimento del danno da reato', '!costituzione di parte civile',
     ],
   },
   civile: {
@@ -36,6 +38,23 @@ export const AREAS = {
       'societa', 'societario', 'appalto privato', 'compravendita', 'mutuo', '=banca',
       'bancari', 'intermediari finanziari', 'protezione dei dati', 'privacy', '!processo civile',
       '!codice civile', '!procedura civile', 'mediazione civile',
+    ],
+  },
+  bancario: {
+    label: 'Bancario e finanziario',
+    keywords: [
+      '!contratti bancari', '!contratto bancario', '!rapporti bancari', '!rapporto bancario', '!conto corrente',
+      '!conti correnti', '=mutuo', '!contratto di mutuo', '=mutui', '!decreto ingiuntivo', '!cessione del credito',
+      '!cessione dei crediti', '!cartolarizzazion', '!fideiussion', '!anatocismo', '!usura bancaria',
+      '!tasso usurario', '!interessi usurari', 'interessi moratori', '!commissione di massimo scoperto',
+      '!intermediari finanziari', '!intermediario finanziario', '!arbitro bancario finanziario', '=abf',
+      '!credito al consumo', '!centrale rischi', '=crif', '!leasing', '=banca', '=banche', 'bancari',
+      '!istituto di credito', '!istituti di credito', '!servizi di investimento', '=consob',
+      '!testo unico bancario', '!testo unico della finanza', 'titoli di credito', '=assegno bancario',
+      '=cambiale', '!carta di credito', '!carte di pagamento', '!servizi di pagamento', '!phishing',
+      '!sovraindebitamento', '!segnalazione alla centrale', '!estinzione anticipata', '!piano di ammortamento',
+      '!tassi effettivi globali medi', '!legge sull\'usura', '!usura', '!tasso soglia', '!credito ai consumatori',
+      '!contratti di credito', '!garanzia autonoma', '!polizza fideiussoria', '!opposizione a decreto ingiuntivo',
     ],
   },
   famiglia: {

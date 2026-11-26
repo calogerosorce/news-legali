@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-26T11:57:52.164Z",
+ "updatedAt": "2026-11-26T12:05:56.475Z",
  "areas": [
   {
    "id": "penale",
@@ -12,6 +12,12 @@
    "label": "Civile",
    "count": 17,
    "url": "api/civile.json"
+  },
+  {
+   "id": "bancario",
+   "label": "Bancario e finanziario",
+   "count": 1,
+   "url": "api/bancario.json"
   },
   {
    "id": "famiglia",

@@ -4,7 +4,7 @@
      Configurazione (attributi data-* della <section>):
        data-studio    profilo dello studio sull'hub (config/studi.json): le materie si gestiscono
                       dall'hub, senza toccare questo HTML. Se manca o non risponde, usa data-areas.
-       data-areas     aree separate da virgola: penale, civile, famiglia, lavoro, tributario,
+       data-areas     aree separate da virgola: penale, civile, bancario, famiglia, lavoro, tributario,
                       amministrativo, immigrazione, professione, ue, generale
        data-limit     notizie mostrate all'inizio (default 6); "Mostra altre" ne aggiunge altrettante
        data-endpoint  base URL dell'hub (non cambiarlo)
@@ -86,7 +86,7 @@
 (function () {
   var LABELS = {
     penale: 'Penale', civile: 'Civile', famiglia: 'Famiglia e minori', lavoro: 'Lavoro e previdenza',
-    tributario: 'Tributario', amministrativo: 'Amministrativo', immigrazione: 'Immigrazione',
+    tributario: 'Tributario', bancario: 'Bancario', amministrativo: 'Amministrativo', immigrazione: 'Immigrazione',
     professione: 'Giustizia e professione', ue: 'Diritto UE', generale: 'Novità normative'
   };
   var CACHE_KEY = 'ln-news-cache-v1';

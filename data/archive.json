@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-26T11:57:52.164Z",
+ "updatedAt": "2026-11-26T12:05:56.475Z",
  "items": [
   {
    "id": "curia-1000089717",
@@ -2193,6 +2193,7 @@
    "date": "2026-10-16",
    "areas": [
     "penale",
+    "bancario",
     "tributario"
    ],
    "weight": 2,
