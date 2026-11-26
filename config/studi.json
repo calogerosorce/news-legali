@@ -1,5 +1,6 @@
 {
   "_istruzioni": "Un profilo per ogni studio cliente. 'aree' = materie seguite (penale, civile, famiglia, lavoro, tributario, amministrativo, immigrazione, professione, ue, generale). Modificando qui le aree, il sito del cliente si aggiorna da solo senza toccare il suo HTML.",
+  "salvatore-montalto": { "nome": "Studio Legale Salvatore Montalto (Grammichele)", "aree": ["successioni", "civile"] },
   "roberta-longhitano": { "nome": "Studio Legale Roberta Longhitano (Bronte)", "aree": ["penale", "partecivile"] },
   "santina-lattuca": {
     "nome": "Studio Legale Santina Lattuca (Ribera)",

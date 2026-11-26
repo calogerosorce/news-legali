@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-26T13:26:57.467Z",
+ "updatedAt": "2026-11-26T17:04:49.535Z",
  "areas": [
   {
    "id": "penale",
@@ -24,6 +24,12 @@
    "label": "Parte civile e vittime di reato",
    "count": 3,
    "url": "api/partecivile.json"
+  },
+  {
+   "id": "successioni",
+   "label": "Successioni ed eredità",
+   "count": 1,
+   "url": "api/successioni.json"
   },
   {
    "id": "famiglia",

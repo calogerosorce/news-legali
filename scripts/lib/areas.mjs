@@ -66,6 +66,19 @@ export const AREAS = {
       '!danno da reato', '!fondo per le vittime', '!vittime di reati intenzionali violenti',
     ],
   },
+  successioni: {
+    label: 'Successioni ed eredità',
+    keywords: [
+      '!successione ereditaria', '!successioni ereditarie', '!successione legittima', '!successione testamentaria',
+      '!successione mortis causa', '!dichiarazione di successione', '!imposta di successione', '!imposta sulle successioni',
+      '!eredita', '!ereditari', '!eredita giacente', '!eredita giacenti', '!curatore dell\'eredita', '!coeredi',
+      '!testament', '!legittimari', '!quota di legittima', '!lesione di legittima', '!azione di riduzione',
+      '!rinuncia all\'eredita', '!accettazione dell\'eredita', '!beneficio d\'inventario', '!collazione',
+      '!divisione ereditaria', '!comunione ereditaria', '!patti successori', '!esecutore testamentario',
+      '!de cuius', '!certificato successorio', '!chiamato all\'eredita', '!chiamati all\'eredita', '!donazione',
+      '!donazioni', '!successioni e donazioni', '!debiti ereditari',
+    ],
+  },
   famiglia: {
     label: 'Famiglia e minori',
     keywords: [

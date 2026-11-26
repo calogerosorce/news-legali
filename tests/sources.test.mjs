@@ -128,4 +128,7 @@ test('classificazione', () => {
   assert.ok(classify('Impugnazione per i soli interessi civili').includes('partecivile'));
   assert.ok(!classify('Ricorso della parte integralmente vittoriosa').includes('partecivile'));
   assert.ok(!classify('Misure di sicurezza - Libertà vigilata').includes('partecivile'));
+  assert.ok(classify('Eredità giacente: poteri del curatore').includes('successioni'));
+  assert.ok(classify('Rinuncia all\'eredità e debiti ereditari').includes('successioni'));
+  assert.ok(!classify('Il funzionario è legato da vincolo di subordinazione').includes('successioni'));
 });

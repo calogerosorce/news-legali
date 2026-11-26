@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-26T13:26:57.467Z",
+ "updatedAt": "2026-11-26T17:04:49.535Z",
  "items": [
   {
    "id": "curia-1000089717",
@@ -1573,6 +1573,7 @@
    "date": "2026-11-09",
    "areas": [
     "civile",
+    "successioni",
     "lavoro"
    ],
    "weight": 1,
