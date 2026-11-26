@@ -1,0 +1,56 @@
+name: Aggiorna news legali
+
+on:
+  schedule:
+    - cron: '23 */3 * * *'   # ogni 3 ore
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/**', 'tests/**', '.github/workflows/**']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aggiorna-news
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Test dei parser (copie salvate delle fonti)
+        run: node --test tests/sources.test.mjs
+
+      - name: Raccolta notizie dalle fonti ufficiali
+        id: build
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/build.mjs
+
+      - name: Pubblica i JSON aggiornati
+        run: |
+          git config user.name  "news-legali-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add api data
+          if git diff --cached --quiet; then
+            echo "Nessuna modifica."
+          else
+            git commit -m "news: aggiornamento $(date -u +'%Y-%m-%d %H:%M') UTC"
+            git pull --rebase --autostash origin main || true
+            git push
+          fi
+
+      - name: Allarme (email da GitHub se una fonte è ferma)
+        if: steps.build.outcome == 'failure'
+        run: |
+          echo "::error::Una o più fonti non rispondono da oltre 72 ore. Controlla api/status.json."
+          exit 1

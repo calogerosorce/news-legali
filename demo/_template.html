@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo — News legali automatiche</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;font-family:Inter,system-ui,sans-serif;background:#f6f3ee;color:#1c1d21}
+  .bar{position:sticky;top:0;z-index:5;background:#14161b;color:#e9e3d7;display:flex;gap:14px;align-items:center;justify-content:space-between;padding:12px 4%;font-size:.85rem;flex-wrap:wrap}
+  .bar select,.bar button{font:inherit;background:#23262d;color:#e9e3d7;border:1px solid #3a3e47;border-radius:8px;padding:6px 10px}
+  .hero{padding:70px 4% 30px;text-align:center}
+  .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.4rem);margin:0 0 8px}
+  .hero p{color:#6b6f7a;margin:0}
+  body.dark{background:#0f1115;color:#e9e3d7}
+  body.dark .ln-news{--ln-card:#171a20;--ln-text:#ece6da;--ln-muted:#9a9faa;--ln-accent:#c8a96a;--ln-accent-text:#111;--ln-border:rgba(255,255,255,.09)}
+  body.dark .hero p{color:#9a9faa}
+</style>
+</head>
+<body>
+<div class="bar">
+  <strong>Anteprima widget News legali</strong>
+  <label>Aree:
+    <select id="pick">
+      <option value="penale,professione">Penalista (penale + giustizia)</option>
+      <option value="civile,famiglia,lavoro,professione">Civilista generalista</option>
+      <option value="famiglia,civile">Famiglia e minori</option>
+      <option value="lavoro">Giuslavorista</option>
+      <option value="tributario">Tributarista</option>
+      <option value="amministrativo,ue">Amministrativista</option>
+      <option value="all">Tutte le notizie</option>
+    </select>
+  </label>
+  <button id="theme" type="button">Tema scuro / chiaro</button>
+</div>
+<div class="hero">
+  <h1>Studio Legale Demo</h1>
+  <p>Pagina di prova: la sezione qui sotto si aggiorna da sola dalle fonti ufficiali.</p>
+</div>
+<!--SNIPPET-->
+<script>
+  (function(){
+    var sel=document.getElementById('pick'), sec=document.querySelector('.ln-news');
+    var q=new URLSearchParams(location.search);
+    if(q.get('areas')){ sel.value=q.get('areas'); sec.setAttribute('data-areas',q.get('areas')); }
+    else sec.setAttribute('data-areas', sel.value);
+    if(q.get('endpoint')) sec.setAttribute('data-endpoint', q.get('endpoint'));
+    if(q.get('dark')) document.body.classList.add('dark');
+    sel.onchange=function(){ q.set('areas',sel.value); location.search=q.toString(); };
+    document.getElementById('theme').onclick=function(){ document.body.classList.contains('dark')?q.delete('dark'):q.set('dark','1'); location.search=q.toString(); };
+  })();
+</script>
+</body>
+</html>
