@@ -107,4 +107,7 @@ test('classificazione', () => {
   assert.ok(classify('Riforma dell\'ordinamento forense').includes('professione'));
   assert.deepEqual(classify('Attività derivativa e impostazione grafica'), []);
   assert.ok(!classify('Il tribunale ha deciso').includes('professione'), 'parola debole da sola non basta');
+  assert.ok(classify('Opposizione a decreto ingiuntivo su contratto di conto corrente').includes('bancario'));
+  assert.ok(!classify('Superbonus 110% - cessione del credito d\'imposta').includes('bancario'), 'crediti fiscali esclusi');
+  assert.ok(classify('Costituzione di parte civile nel processo').includes('penale'));
 });

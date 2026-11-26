@@ -185,8 +185,14 @@ export function scoreAreas(text) {
  * Le aree "deboli" (professione, amministrativo, civile) richiedono 2 match
  * se non sono forzate, per evitare falsi positivi (es. "tribunale" ovunque).
  */
+// Esclusioni: se il testo parla di questo, l'area non si applica (falsi positivi noti).
+const EXCLUDE = {
+  bancario: /credit[oi] d'?\s?imposta|superbonus|bonus edilizi|crediti fiscali/i,
+};
+
 export function classify(text, forced = []) {
   const scores = scoreAreas(text);
+  for (const [id, re] of Object.entries(EXCLUDE)) if (re.test(text) && !forced.includes(id)) delete scores[id];
   const weak = { professione: 2, amministrativo: 2, civile: 2, famiglia: 2, ue: 1 };
   const areas = new Set(forced);
   for (const [id, n] of Object.entries(scores)) {
