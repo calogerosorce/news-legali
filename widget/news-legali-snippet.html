@@ -1,229 +1,203 @@
 <!-- ============================================================
      NEWS LEGALI AUTOMATICHE — sezione da incollare nell'HTML del cliente
      Hub: https://calogerosorce.github.io/news-legali/
-     Configurazione (attributi data-* della <section>):
+     Configurazione (attributi data-* del div .ln-news):
        data-studio    profilo dello studio sull'hub (config/studi.json): le materie si gestiscono
                       dall'hub, senza toccare questo HTML. Se manca o non risponde, usa data-areas.
        data-areas     aree separate da virgola: penale, civile, bancario, famiglia, lavoro, tributario,
                       amministrativo, immigrazione, professione, ue, generale
-       data-limit     notizie mostrate all'inizio (default 6); "Mostra altre" ne aggiunge altrettante
+       data-max       quante notizie al massimo nel carosello (default 30)
        data-endpoint  base URL dell'hub (non cambiarlo)
-     Colori: modifica le variabili --ln-* nel blocco <style> per adattarle al sito.
+     Layout: 3 card visibili su desktop, 2 su tablet, 1 su telefono; frecce e swipe per scorrere.
+     Colori/font: modifica le variabili --ln-* nel blocco <style>.
      ============================================================ -->
-<section id="news" class="ln-news" data-studio="" data-areas="penale,professione" data-limit="6"
-         data-endpoint="https://calogerosorce.github.io/news-legali/api/" aria-labelledby="ln-title">
-  <div class="ln-wrap">
-    <header class="ln-head">
-      <span class="ln-eyebrow">Aggiornamenti normativi e giurisprudenziali</span>
-      <h2 id="ln-title" class="ln-h2">News e approfondimenti</h2>
-      <p class="ln-intro">Le ultime novità da Gazzetta Ufficiale, Corte di Cassazione, Corte costituzionale e altre fonti istituzionali, aggiornate automaticamente.</p>
-    </header>
-    <div class="ln-filters" role="tablist" aria-label="Filtra per area" hidden></div>
-    <div class="ln-grid" aria-live="polite" aria-busy="true">
-      <div class="ln-card ln-skel"></div><div class="ln-card ln-skel"></div><div class="ln-card ln-skel"></div>
-    </div>
-    <div class="ln-foot">
-      <button type="button" class="ln-more" hidden>Mostra altre notizie</button>
-      <p class="ln-disclaimer">Rassegna automatica da fonti istituzionali, a scopo informativo: non costituisce parere legale. Fa fede il testo pubblicato dalla fonte ufficiale. <span class="ln-updated"></span></p>
+<section id="news" class="ln-news-section" aria-labelledby="ln-title">
+  <div class="ln-news" data-studio="" data-areas="penale,professione" data-max="30"
+       data-endpoint="https://calogerosorce.github.io/news-legali/api/">
+    <div class="ln-wrap">
+      <header class="ln-head">
+        <span class="ln-eyebrow">Aggiornamenti normativi e giurisprudenziali</span>
+        <h2 id="ln-title" class="ln-h2">News e approfondimenti</h2>
+        <p class="ln-intro">Le ultime novità da Gazzetta Ufficiale, Corte di Cassazione, Corte costituzionale e altre fonti istituzionali, aggiornate automaticamente.</p>
+      </header>
+      <div class="ln-bar">
+        <div class="ln-chips" role="tablist" aria-label="Filtra per materia" hidden></div>
+        <div class="ln-nav">
+          <span class="ln-count" aria-live="polite"></span>
+          <button type="button" class="ln-arrow ln-prev" aria-label="Notizie precedenti" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" class="ln-arrow ln-next" aria-label="Notizie successive"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+      <div class="ln-track" aria-busy="true" tabindex="0" aria-label="Notizie, scorri per vederne altre">
+        <article class="ln-card ln-skel" aria-hidden="true"></article><article class="ln-card ln-skel" aria-hidden="true"></article><article class="ln-card ln-skel" aria-hidden="true"></article>
+      </div>
+      <p class="ln-note">Rassegna automatica da fonti istituzionali, a scopo informativo: non costituisce parere legale. Fa fede il testo pubblicato dalla fonte ufficiale. <span class="ln-updated"></span></p>
     </div>
   </div>
 </section>
 
 <style>
 .ln-news{
-  /* ---- personalizza qui i colori del sito ---- */
+  /* ---- personalizza qui i colori e i font del sito ---- */
   --ln-bg: transparent;
   --ln-card: #ffffff;
   --ln-text: #1c1d21;
-  --ln-muted: #6b6f7a;
+  --ln-muted: #5d616b;
   --ln-accent: #8a6d3b;
   --ln-accent-text: #ffffff;
-  --ln-border: rgba(0,0,0,.10);
+  --ln-border: rgba(0,0,0,.11);
   --ln-radius: 14px;
-  --ln-font-title: inherit;
-  /* -------------------------------------------- */
-  background: var(--ln-bg); color: var(--ln-text); padding: clamp(56px,8vw,110px) 0; font-family: inherit;
-}
+  --ln-font-title: Georgia, "Times New Roman", serif;
+  /* ----------------------------------------------------- */
+  background:var(--ln-bg);color:var(--ln-text);padding:clamp(56px,8vw,110px) 0;font-family:inherit}
 .ln-news *{box-sizing:border-box}
 .ln-wrap{width:min(1180px,92%);margin:0 auto}
-.ln-head{max-width:720px;margin-bottom:28px}
+.ln-head{max-width:720px;margin-bottom:30px}
 .ln-eyebrow{display:inline-block;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ln-accent);font-weight:600;margin-bottom:10px}
 .ln-h2{font-family:var(--ln-font-title);font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.15;margin:0 0 12px;color:var(--ln-text)}
 .ln-intro{margin:0;color:var(--ln-muted);line-height:1.6}
-.ln-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
-.ln-filters[hidden]{display:none}
-.ln-chip{appearance:none;border:1px solid var(--ln-border);background:transparent;color:var(--ln-text);padding:8px 16px;border-radius:999px;font:inherit;font-size:.88rem;cursor:pointer;transition:.2s}
+.ln-bar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 22px;flex-wrap:wrap}
+.ln-chips{display:flex;flex-wrap:wrap;gap:8px}
+.ln-chips[hidden]{display:none}
+.ln-chip{appearance:none;border:1px solid var(--ln-border);background:transparent;color:var(--ln-text);padding:8px 16px;border-radius:999px;font:inherit;font-size:.86rem;cursor:pointer;transition:.2s}
 .ln-chip:hover{border-color:var(--ln-accent)}
 .ln-chip[aria-selected="true"]{background:var(--ln-accent);border-color:var(--ln-accent);color:var(--ln-accent-text)}
-.ln-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-.ln-card{background:var(--ln-card);border:1px solid var(--ln-border);border-radius:var(--ln-radius);padding:22px 22px 18px;display:flex;flex-direction:column;gap:10px;transition:transform .25s,box-shadow .25s,border-color .25s;animation:ln-in .45s ease both}
-.ln-card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.10);border-color:var(--ln-accent)}
-@keyframes ln-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.ln-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.78rem;color:var(--ln-muted)}
-.ln-grid .ln-card{min-height:auto}
-@media (min-width:700px){.ln-grid .ln-card{min-height:220px}}
-.ln-kind{background:color-mix(in srgb,var(--ln-accent) 14%,transparent);color:var(--ln-accent);padding:4px 10px;border-radius:999px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:72%}
-.ln-card h3{font-family:var(--ln-font-title);font-size:1.02rem;line-height:1.45;margin:0;color:var(--ln-text);display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
-.ln-sub{font-size:.8rem;color:var(--ln-muted);line-height:1.45;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.ln-plain{font-size:.88rem;line-height:1.55;margin:0;padding:10px 12px;border-left:3px solid var(--ln-accent);background:color-mix(in srgb,var(--ln-accent) 6%,transparent);border-radius:0 8px 8px 0}
-.ln-plain b{color:var(--ln-accent);font-weight:600}
-.ln-bottom{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:12px;border-top:1px solid var(--ln-border);font-size:.8rem}
-.ln-src{color:var(--ln-muted)}
-.ln-link{color:var(--ln-accent);font-weight:600;text-decoration:none;white-space:nowrap}
-.ln-link:hover{text-decoration:underline}
-.ln-skel{background:linear-gradient(90deg,var(--ln-card) 25%,color-mix(in srgb,var(--ln-text) 6%,var(--ln-card)) 50%,var(--ln-card) 75%);background-size:200% 100%;animation:ln-sh 1.3s infinite}
+.ln-nav{display:flex;align-items:center;gap:10px;margin-left:auto}
+.ln-count{font-size:.8rem;font-weight:600;letter-spacing:.06em;color:var(--ln-muted);margin-right:6px;font-variant-numeric:tabular-nums}
+.ln-arrow{appearance:none;width:46px;height:46px;border:1px solid var(--ln-border);border-radius:50%;background:transparent;display:grid;place-items:center;color:var(--ln-text);cursor:pointer;transition:background .25s,color .25s,border-color .25s,opacity .25s}
+.ln-arrow svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ln-arrow:hover:not(:disabled){background:var(--ln-accent);border-color:var(--ln-accent);color:var(--ln-accent-text)}
+.ln-arrow:disabled{opacity:.3;cursor:default}
+.ln-track{--gap:20px;display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 2 * var(--gap)) / 3);gap:var(--gap);overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain;padding:6px 0 12px;outline:none}
+.ln-track::-webkit-scrollbar{display:none}
+.ln-card{scroll-snap-align:start;display:flex;flex-direction:column;min-height:420px;background:var(--ln-card);border:1px solid var(--ln-border);border-radius:var(--ln-radius);padding:clamp(24px,2.2vw,32px);position:relative;transition:transform .25s,box-shadow .25s,border-color .25s;animation:ln-in .45s ease both}
+.ln-card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.09);border-color:var(--ln-accent)}
+.ln-meta{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--ln-border)}
+.ln-kind{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ln-accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ln-meta time{font-size:.78rem;color:var(--ln-muted);white-space:nowrap}
+.ln-topic{margin:22px 0 0;font-size:.72rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ln-muted)}
+.ln-title{font-family:var(--ln-font-title);font-weight:600;font-size:clamp(1.3rem,1.6vw,1.6rem);line-height:1.22;color:var(--ln-text);margin:8px 0 12px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.ln-meta+.ln-title{margin-top:22px}
+.ln-text{margin:0;font-size:.93rem;line-height:1.7;color:var(--ln-muted);display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.ln-ref{margin:12px 0 0;font-size:.78rem;line-height:1.55;color:var(--ln-muted);opacity:.85;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ln-src{display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:1px solid var(--ln-border);margin-top:auto;padding-top:16px;font-size:.8rem;color:var(--ln-text);text-decoration:none}
+.ln-src b{font-weight:500;color:var(--ln-muted)}
+.ln-src span{white-space:nowrap;font-weight:700;color:var(--ln-accent)}
+.ln-card>.ln-src::after{content:'';position:absolute;inset:0;border-radius:var(--ln-radius)}
+.ln-skel{min-height:420px;background:linear-gradient(90deg,var(--ln-card) 25%,color-mix(in srgb,var(--ln-text) 6%,var(--ln-card)) 50%,var(--ln-card) 75%);background-size:200% 100%;animation:ln-sh 1.3s infinite}
 @keyframes ln-sh{to{background-position:-200% 0}}
-.ln-empty{grid-column:1/-1;color:var(--ln-muted);padding:20px 0}
-.ln-foot{margin-top:26px;display:flex;flex-direction:column;align-items:center;gap:16px}
-.ln-more{appearance:none;border:1px solid var(--ln-accent);background:transparent;color:var(--ln-accent);padding:12px 26px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer;transition:.2s}
-.ln-more:hover{background:var(--ln-accent);color:var(--ln-accent-text)}
-.ln-more[hidden]{display:none}
-.ln-disclaimer{font-size:.76rem;color:var(--ln-muted);text-align:center;max-width:760px;margin:0;line-height:1.5}
-@media (prefers-reduced-motion:reduce){.ln-card,.ln-skel{animation:none}.ln-card:hover{transform:none}}
+@keyframes ln-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ln-empty{color:var(--ln-muted);padding:16px 0;white-space:normal}
+.ln-empty a{color:var(--ln-accent)}
+.ln-note{font-size:.76rem;color:var(--ln-muted);text-align:center;max-width:760px;margin:22px auto 0;line-height:1.5}
+@media(max-width:900px){.ln-track{grid-auto-columns:calc((100% - var(--gap)) / 2)}}
+@media(max-width:600px){.ln-track{--gap:14px;grid-auto-columns:88%}.ln-card,.ln-skel{min-height:380px}.ln-bar{flex-direction:column;align-items:stretch}.ln-nav{margin-left:0;justify-content:flex-end}.ln-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.ln-chip{flex:none}}
+@media(prefers-reduced-motion:reduce){.ln-card,.ln-skel{animation:none}.ln-track{scroll-behavior:auto}.ln-card:hover{transform:none}}
 </style>
 
 <script>
-(function () {
-  var LABELS = {
-    penale: 'Penale', civile: 'Civile', famiglia: 'Famiglia e minori', lavoro: 'Lavoro e previdenza',
-    tributario: 'Tributario', bancario: 'Bancario', amministrativo: 'Amministrativo', immigrazione: 'Immigrazione',
-    professione: 'Giustizia e professione', ue: 'Diritto UE', generale: 'Novità normative'
-  };
-  var CACHE_KEY = 'ln-news-cache-v1';
-
-  function esc(s) {
-    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-    });
-  }
-  function safeUrl(u) { return /^https:\/\//i.test(u || '') ? u : '#'; }
-  function fmtDate(iso) {
-    try {
-      var d = new Date(iso + 'T12:00:00');
-      return d.toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' });
-    } catch (e) { return iso; }
-  }
-  function cacheGet(k) { try { return JSON.parse(localStorage.getItem(CACHE_KEY + k)); } catch (e) { return null; } }
-  function cacheSet(k, v) { try { localStorage.setItem(CACHE_KEY + k, JSON.stringify(v)); } catch (e) {} }
-
-  function card(it) {
-    return '<article class="ln-card">' +
-      '<div class="ln-meta"><span class="ln-kind" title="' + esc(it.kind) + '">' + esc(it.kind) + '</span>' +
-      '<time datetime="' + esc(it.date) + '">' + esc(fmtDate(it.date)) + '</time></div>' +
-      '<h3>' + esc(it.title) + '</h3>' +
-      (it.subtitle ? '<p class="ln-sub">' + esc(it.subtitle) + '</p>' : '') +
-      (it.plain ? '<p class="ln-plain"><b>In breve:</b> ' + esc(it.plain) + '</p>' : '') +
-      '<div class="ln-bottom"><span class="ln-src">' + esc(it.sourceLabel) + '</span>' +
-      '<a class="ln-link" href="' + esc(safeUrl(it.url)) + '" target="_blank" rel="noopener nofollow">Fonte ufficiale →</a></div>' +
-      '</article>';
-  }
-
-  function init(root) {
-    var base = (root.getAttribute('data-endpoint') || '').replace(/\/?$/, '/');
-    var areas = (root.getAttribute('data-areas') || 'all').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
-    var step = parseInt(root.getAttribute('data-limit'), 10) || 6;
-    var grid = root.querySelector('.ln-grid');
-    var filters = root.querySelector('.ln-filters');
-    var more = root.querySelector('.ln-more');
-    var upd = root.querySelector('.ln-updated');
-    var all = [], current = 'tutte', shown = step;
-
-    function list() {
-      return current === 'tutte' ? all : all.filter(function (i) { return (i.areas || []).indexOf(current) > -1; });
+  (function () {
+    var LABELS = { penale: 'Penale', civile: 'Civile', bancario: 'Bancario', famiglia: 'Famiglia', lavoro: 'Lavoro',
+      tributario: 'Tributario', amministrativo: 'Amministrativo', immigrazione: 'Immigrazione',
+      professione: 'Giustizia', ue: 'Diritto UE', generale: 'Novità normative' };
+    var CACHE = 'ln-news-cache-v1';
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function safeUrl(u) { return /^https:\/\//i.test(u || '') ? u : '#'; }
+    function fmt(iso) { try { return new Date(iso + 'T12:00:00').toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return iso; } }
+    function cget(k) { try { return JSON.parse(localStorage.getItem(CACHE + k)); } catch (e) { return null; } }
+    function cset(k, v) { try { localStorage.setItem(CACHE + k, JSON.stringify(v)); } catch (e) {} }
+    // Massime "A - B - C - Applicabilità": titolo breve (A) + testo leggibile (B · C · …)
+    function shape(it) {
+      var t = (it.title || '').trim(), parts = t.split(/\s+-\s+|\s*-(?=[A-ZÀ-Ý])/);
+      if (parts.length >= 3 && parts[0].length <= 90) return { head: parts[0], text: parts.slice(1).join(' · ') };
+      return { head: t, text: '' };
     }
-    function render() {
-      var l = list();
-      grid.setAttribute('aria-busy', 'false');
-      grid.innerHTML = l.length ? l.slice(0, shown).map(card).join('')
-        : '<p class="ln-empty">Nessuna novità recente in quest\'area. Torna a trovarci presto.</p>';
-      more.hidden = l.length <= shown;
+    function card(it) {
+      var s = shape(it);
+      var text = it.plain ? it.plain : s.text;
+      return '<article class="ln-card"><div class="ln-meta"><span class="ln-kind">' + esc(it.kind) + '</span>' +
+        '<time datetime="' + esc(it.date) + '">' + esc(fmt(it.date)) + '</time></div>' +
+        (it.summary ? '<p class="ln-topic">' + esc(it.summary) + '</p>' : '') +
+        '<h3 class="ln-title">' + esc(s.head) + '</h3>' +
+        (text ? '<p class="ln-text">' + esc(text) + '</p>' : '') +
+        (it.subtitle ? '<p class="ln-ref">' + esc(it.subtitle) + '</p>' : '') +
+        '<a class="ln-src" href="' + esc(safeUrl(it.url)) + '" target="_blank" rel="noopener nofollow"><b>' + esc(it.sourceLabel) + '</b><span>Leggi la fonte ↗</span></a></article>';
     }
-    function buildFilters() {
-      var present = areas.filter(function (a) { return all.some(function (i) { return (i.areas || []).indexOf(a) > -1; }); });
-      if (present.length < 2) { filters.hidden = true; return; }
-      var opts = ['tutte'].concat(present);
-      filters.innerHTML = opts.map(function (a) {
-        return '<button type="button" role="tab" class="ln-chip" data-a="' + esc(a) + '" aria-selected="' + (a === current) + '">' +
-          esc(a === 'tutte' ? 'Tutte' : (LABELS[a] || a)) + '</button>';
-      }).join('');
-      filters.hidden = false;
-    }
-    filters.addEventListener('click', function (e) {
-      var b = e.target.closest('.ln-chip'); if (!b) return;
-      current = b.getAttribute('data-a'); shown = step;
-      [].forEach.call(filters.children, function (c) { c.setAttribute('aria-selected', String(c === b)); });
-      render();
-    });
-    more.addEventListener('click', function () { shown += step; render(); });
-
-    function apply(data) {
-      all = data.items; buildFilters(); render();
-      if (data.updatedAt && upd) {
-        var d = new Date(data.updatedAt);
-        upd.textContent = 'Ultimo aggiornamento: ' + d.toLocaleDateString('it-IT') + ' ' +
-          d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) + '.';
+    function init(root) {
+      var base = (root.getAttribute('data-endpoint') || '').replace(/\/?$/, '/');
+      var studio = (root.getAttribute('data-studio') || '').trim();
+      var areas = (root.getAttribute('data-areas') || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+      var max = parseInt(root.getAttribute('data-max'), 10) || 30;
+      var track = root.querySelector('.ln-track'), chips = root.querySelector('.ln-chips'),
+          prev = root.querySelector('.ln-prev'), next = root.querySelector('.ln-next'),
+          count = root.querySelector('.ln-count'), upd = root.querySelector('.ln-updated');
+      var all = [], cur = 'tutte', key = studio ? 'studio:' + studio : areas.join(',');
+      function list() { return (cur === 'tutte' ? all : all.filter(function (i) { return (i.areas || []).indexOf(cur) > -1; })).slice(0, max); }
+      function metrics() {
+        var c = track.querySelector('.ln-card'); if (!c) return null;
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 0, w = c.getBoundingClientRect().width + gap;
+        var per = Math.max(1, Math.round((track.clientWidth + gap) / w));
+        return { w: w, per: per };
       }
-    }
-
-    var studio = (root.getAttribute('data-studio') || '').trim();
-    var key = studio ? 'studio:' + studio : areas.join(',');
-    var cached = cacheGet(key);
-    if (cached && cached.items && cached.items.length) {
-      if (cached.aree) areas = cached.aree;
-      apply(cached);
-    }
-
-    function done(data) {
-      cacheSet(key, data);
-      apply(data);
-    }
-
-    // 1) profilo dello studio sull'hub; 2) riserva: file per area
-    var viaStudio = !studio ? Promise.resolve(null) :
-      fetch(base + 'studi/' + encodeURIComponent(studio) + '.json', { cache: 'no-cache' })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-        .then(function (d) {
-          if (!d || !d.items || !d.items.length) return null;
-          areas = (d.aree || []).map(function (a) { LABELS[a.id] = LABELS[a.id] || a.label; return a.id; });
-          return { updatedAt: d.updatedAt, items: d.items, aree: areas };
-        })
-        .catch(function () { return null; });
-
-    viaStudio.then(function (data) {
-      if (data) return done(data);
-      loadAreas();
-    });
-
-    function loadAreas() {
-    var files = areas.indexOf('all') > -1 ? ['all'] : areas;
-    Promise.all(files.map(function (a) {
-      return fetch(base + encodeURIComponent(a) + '.json', { cache: 'no-cache' })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-        .catch(function () { return null; });
-    })).then(function (res) {
-      var seen = {}, items = [], updatedAt = null;
-      res.forEach(function (d) {
-        if (!d) return;
-        if (!updatedAt || d.updatedAt > updatedAt) updatedAt = d.updatedAt;
-        (d.items || []).forEach(function (i) { if (!seen[i.id]) { seen[i.id] = 1; items.push(i); } });
+      function sync() {
+        var n = track.querySelectorAll('.ln-card:not(.ln-skel)').length, m = metrics();
+        if (!m || !n) { prev.disabled = next.disabled = true; count.textContent = ''; return; }
+        var first = Math.round(track.scrollLeft / m.w), last = Math.min(n, first + m.per);
+        prev.disabled = track.scrollLeft < 4;
+        next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+        count.textContent = (first + 1) + (last > first + 1 ? '–' + last : '') + ' / ' + n;
+      }
+      function go(dir) { var m = metrics(); if (m) track.scrollBy({ left: dir * m.w * m.per, behavior: 'smooth' }); }
+      prev.addEventListener('click', function () { go(-1); });
+      next.addEventListener('click', function () { go(1); });
+      track.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight') { e.preventDefault(); go(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); } });
+      var raf; track.addEventListener('scroll', function () { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, { passive: true });
+      window.addEventListener('resize', sync);
+      function render() {
+        var l = list(); track.setAttribute('aria-busy', 'false');
+        track.innerHTML = l.length ? l.map(card).join('') : '<p class="ln-empty">Nessuna novità recente in questa materia.</p>';
+        track.scrollLeft = 0; requestAnimationFrame(sync);
+      }
+      function buildChips() {
+        var present = areas.filter(function (a) { return all.some(function (i) { return (i.areas || []).indexOf(a) > -1; }); });
+        if (present.length < 2) { chips.hidden = true; return; }
+        chips.innerHTML = ['tutte'].concat(present).map(function (a) {
+          return '<button type="button" role="tab" class="ln-chip" data-a="' + esc(a) + '" aria-selected="' + (a === cur) + '">' + esc(a === 'tutte' ? 'Tutte' : (LABELS[a] || a)) + '</button>';
+        }).join(''); chips.hidden = false;
+      }
+      chips.addEventListener('click', function (e) {
+        var b = e.target.closest('.ln-chip'); if (!b) return;
+        cur = b.getAttribute('data-a');
+        [].forEach.call(chips.children, function (c) { c.setAttribute('aria-selected', String(c === b)); }); render();
       });
-      if (!items.length) {
-        if (!cached) {
-          grid.setAttribute('aria-busy', 'false');
-          grid.innerHTML = '<p class="ln-empty">Le news non sono disponibili in questo momento. Consulta la ' +
-            '<a class="ln-link" href="https://www.gazzettaufficiale.it" target="_blank" rel="noopener">Gazzetta Ufficiale</a> o il sito della ' +
-            '<a class="ln-link" href="https://www.cortedicassazione.it" target="_blank" rel="noopener">Corte di Cassazione</a>.</p>';
-        }
-        return;
+      function apply(d) {
+        all = d.items || []; if (d.aree) areas = d.aree; buildChips(); render();
+        if (d.updatedAt && upd) { var t = new Date(d.updatedAt); upd.textContent = 'Ultimo aggiornamento: ' + t.toLocaleDateString('it-IT') + ' ' + t.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) + '.'; }
       }
-      items.sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
-      done({ updatedAt: updatedAt, items: items });
-    });
+      function done(d) { cset(key, d); apply(d); }
+      var cached = cget(key); if (cached && cached.items && cached.items.length) apply(cached);
+      function getJson(u) { return fetch(u, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }); }
+      (studio ? getJson(base + 'studi/' + encodeURIComponent(studio) + '.json').then(function (d) {
+        if (!d || !d.items || !d.items.length) return null;
+        return { updatedAt: d.updatedAt, items: d.items, aree: (d.aree || []).map(function (a) { return a.id; }) };
+      }).catch(function () { return null; }) : Promise.resolve(null)).then(function (d) {
+        if (d) return done(d);
+        return Promise.all(areas.map(function (a) { return getJson(base + encodeURIComponent(a) + '.json').catch(function () { return null; }); }))
+          .then(function (res) {
+            var seen = {}, items = [], up = null;
+            res.forEach(function (r) { if (!r) return; if (!up || r.updatedAt > up) up = r.updatedAt;
+              (r.items || []).forEach(function (i) { if (!seen[i.id]) { seen[i.id] = 1; items.push(i); } }); });
+            if (!items.length) {
+              if (!cached) { track.setAttribute('aria-busy', 'false'); track.innerHTML = '<p class="ln-empty">Le notizie non sono disponibili in questo momento. Consulta la <a href="https://www.gazzettaufficiale.it" target="_blank" rel="noopener">Gazzetta Ufficiale</a> o il sito della <a href="https://www.cortedicassazione.it" target="_blank" rel="noopener">Corte di Cassazione</a>.</p>'; sync(); }
+              return;
+            }
+            items.sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+            done({ updatedAt: up, items: items });
+          });
+      });
     }
-  }
-
-  function boot() { [].forEach.call(document.querySelectorAll('.ln-news'), init); }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
-})();
-</script>
+    function boot() { [].forEach.call(document.querySelectorAll('.ln-news'), init); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+  })();
+  </script>
 <!-- ============ FINE NEWS LEGALI AUTOMATICHE ============ -->

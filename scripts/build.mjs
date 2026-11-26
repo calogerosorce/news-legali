@@ -33,8 +33,26 @@ function daysAgo(n) {
   return new Date(Date.now() - n * 86400000).toISOString().slice(0, 10);
 }
 
-const PUBLIC_FIELDS = ['id', 'source', 'sourceLabel', 'kind', 'title', 'subtitle', 'summary', 'plain', 'url', 'date', 'areas'];
-const pub = (i) => Object.fromEntries(PUBLIC_FIELDS.filter((k) => i[k] != null && i[k] !== '').map((k) => [k, i[k]]));
+const PUBLIC_FIELDS = ['id', 'source', 'sourceLabel', 'kind', 'headline', 'body', 'title', 'subtitle', 'summary', 'plain', 'url', 'date', 'areas'];
+
+// Rende leggibili le massime "a catena" (Cassazione, Corte costituzionale):
+// "Libertà vigilata - Condannato a ... - Applicabilità." ->
+// headline "Libertà vigilata", body "Condannato a … · Applicabilità."
+function readable(i) {
+  const out = { ...i, headline: i.title, body: '' };
+  if (!/^(cass-|gu-s1)/.test(i.source || '')) return out;
+  const seg = String(i.title).split(/\s+[-–]\s*(?=[A-ZÀ-Ý«"“(0-9])/).map((x) => x.trim()).filter(Boolean);
+  if (seg.length >= 2 && seg[0].length <= 80) {
+    out.headline = seg[0].replace(/[.;:]$/, '');
+    out.body = seg.slice(1).join(' · ');
+  }
+  return out;
+}
+
+const pub = (raw) => {
+  const i = readable(raw);
+  return Object.fromEntries(PUBLIC_FIELDS.filter((k) => i[k] != null && i[k] !== '').map((k) => [k, i[k]]));
+};
 
 function sortItems(a, b) {
   return (b.date || '').localeCompare(a.date || '')

@@ -15,7 +15,8 @@
   .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.4rem);margin:0 0 8px}
   .hero p{color:#6b6f7a;margin:0}
   body.dark{background:#0f1115;color:#e9e3d7}
-  body.dark .ln-news{--ln-card:#171a20;--ln-text:#ece6da;--ln-muted:#9a9faa;--ln-accent:#c8a96a;--ln-accent-text:#111;--ln-border:rgba(255,255,255,.09)}
+  body.dark .ln-news{--ln-card:#171a20;--ln-text:#ece6da;--ln-muted:#a2a7b1;--ln-accent:#c8a96a;--ln-accent-text:#111;--ln-border:rgba(255,255,255,.1)}
+  body .ln-news{--ln-font-title:'Cormorant Garamond',Georgia,serif}
   body.dark .hero p{color:#9a9faa}
 </style>
 </head>
@@ -25,6 +26,7 @@
   <label>Aree:
     <select id="pick">
       <option value="penale,professione">Penalista (penale + giustizia)</option>
+      <option value="bancario,civile,penale">Bancario + civile + penale</option>
       <option value="civile,famiglia,lavoro,professione">Civilista generalista</option>
       <option value="famiglia,civile">Famiglia e minori</option>
       <option value="lavoro">Giuslavorista</option>
