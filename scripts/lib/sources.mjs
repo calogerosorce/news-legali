@@ -345,7 +345,7 @@ export const curiaUE = {
       out.push(withClass({
         id: `curia-${(guid.match(/p1_(\d+)/) || [])[1] || guid}`,
         source: this.id,
-        sourceLabel: 'Corte di giustizia UE',
+        sourceLabel: "Corte di giustizia dell'Unione europea",
         kind: tipo,
         title: truncate(sintesi, 260),
         subtitle: [causa, materia].filter(Boolean).join(' — '),
@@ -458,41 +458,37 @@ export const abf = {
         if (!decs.length) continue;
         const made = [];
         const date = sanitizeDate(n.date);
+        // Il sito ABF (Banca d'Italia) non consente di riprodurre i suoi contenuti su altri siti senza
+        // autorizzazione scritta: pubblichiamo solo un annuncio scritto da noi + il link alla fonte.
         if (/coordinamento/i.test(n.title)) {
-          for (const d of decs) {
-            const topics = abfTopic(d);
-            made.push(withClass({
-              id: `abf-${d.Anno}-${d.Numero}`,
-              source: 'abf',
-              sourceLabel: 'Arbitro Bancario Finanziario',
-              kind: 'Collegio di coordinamento ABF',
-              title: truncate(sintesi.replace(/\s*\.?$/, '.') || `Decisione su: ${topics.join('; ')}`, 260),
-              subtitle: `Decisione n. ${d.Numero}/${d.Anno} — ${topics.slice(0, 3).join('; ')}`,
-              summary: '',
-              url: d.Url ? ABF_BASE + d.Url : listUrl,
-              date,
-              areas: ['bancario'],
-              weight: 3,
-            }, `${sintesi} ${topics.join(' ')}`, ['bancario']));
-          }
+          const d = decs[0];
+          made.push(withClass({
+            id: `abf-${d.Anno}-${d.Numero}`,
+            source: 'abf',
+            sourceLabel: 'Arbitro Bancario Finanziario',
+            kind: 'Collegio di coordinamento ABF',
+            title: `Nuova decisione del Collegio di coordinamento dell'Arbitro Bancario Finanziario (n. ${d.Numero}/${d.Anno})`,
+            subtitle: 'Il Collegio di coordinamento orienta le decisioni di tutti i collegi territoriali dell\'ABF.',
+            summary: '',
+            url: n.link,
+            date,
+            areas: ['bancario'],
+            weight: 3,
+          }, 'arbitro bancario finanziario', ['bancario']));
         } else {
-          const count = {};
-          for (const d of decs) for (const o of d.Oggetto || []) if (o.Categoria) count[o.Categoria.trim()] = (count[o.Categoria.trim()] || 0) + 1;
-          const top = Object.entries(count).sort((a, b) => b[1] - a[1]).slice(0, 4);
-          const n0 = decs.length >= 500 ? '500 o più' : String(decs.length);
           made.push(withClass({
             id: `abf-gruppo-${searchHref.replace(/\D+/g, '')}`,
             source: 'abf',
             sourceLabel: 'Arbitro Bancario Finanziario',
             kind: 'Decisioni ABF',
-            title: `L'Arbitro Bancario Finanziario ha pubblicato ${n0} nuove decisioni. I temi più ricorrenti: ${top.map(([c]) => abfLabel(c)).join(', ')}.`,
-            subtitle: top.map(([c, k]) => `${c}: ${k}`).join(' · '),
+            title: 'L\'Arbitro Bancario Finanziario ha pubblicato un nuovo gruppo di decisioni',
+            subtitle: 'Decisioni su controversie tra clienti e banche o intermediari finanziari, consultabili sul sito dell\'ABF.',
             summary: '',
-            url: listUrl,
+            url: n.link,
             date,
             areas: ['bancario'],
             weight: 1,
-          }, top.map(([c]) => c).join(' '), ['bancario']));
+          }, 'arbitro bancario finanziario', ['bancario']));
         }
         out.push(...made);
         done.add(n.link);

@@ -38,7 +38,7 @@
   }
  },
  "gu-s1": {
-  "label": "Corte costituzionale (G.U. 1ª S.S.)",
+  "label": "Corte costituzionale (G.U. 1\u00aa S.S.)",
   "url": "https://www.gazzettaufficiale.it/30giorni/corte_costituzionale",
   "lastOk": "2026-11-26T12:28:24.628Z",
   "lastCount": 13,
@@ -102,100 +102,6 @@
   "lastCount": 4,
   "lastAdded": 0,
   "lastError": null,
-  "lastAttempt": "2026-11-26T12:28:24.628Z",
-  "memo": {
-   "cache": {
-    "https://www.arbitrobancariofinanziario.it/novita/notizia/nuove-decisioni-20112026": [
-     {
-      "id": "abf-gruppo-2026112020261120",
-      "source": "abf",
-      "sourceLabel": "Arbitro Bancario Finanziario",
-      "kind": "Decisioni ABF",
-      "title": "L'Arbitro Bancario Finanziario ha pubblicato 500 o più nuove decisioni. I temi più ricorrenti: bonifico, conto corrente bancario e postale, bancomat e carte di debito, carte di credito.",
-      "subtitle": "Bonifico: 123 · Conto corrente bancario e postale: 104 · Bancomat e carte di debito: 89 · Carte di credito: 65",
-      "summary": "",
-      "url": "https://www.arbitrobancariofinanziario.it/decisioni/ricerca/ricerca.html?modDate=2026-11-20&newsDate=2026-11-20",
-      "date": "2026-11-20",
-      "areas": [
-       "bancario"
-      ],
-      "weight": 1,
-      "_ct": "Bonifico Conto corrente bancario e postale Bancomat e carte di debito Carte di credito",
-      "_fa": [
-       "bancario"
-      ]
-     }
-    ],
-    "https://www.arbitrobancariofinanziario.it/novita/notizia/nuove-decisioni-27102026": [
-     {
-      "id": "abf-2026-9724",
-      "source": "abf",
-      "sourceLabel": "Arbitro Bancario Finanziario",
-      "kind": "Collegio di coordinamento ABF",
-      "title": "Il Collegio di coordinamento, con decisione n. 9724/26, si è pronunciato sul tema del collocamento delle carte di credito revolving da parte di soggetti terzi.",
-      "subtitle": "Decisione n. 9724/2026 — Contratti bancari in genere – Validità o efficacia del contratto; Credito ai consumatori; Carte di credito – Carte revolving",
-      "summary": "",
-      "url": "https://www.arbitrobancariofinanziario.it/decisioni/2026/10/Dec-20261022-9724.pdf",
-      "date": "2026-10-27",
-      "areas": [
-       "bancario"
-      ],
-      "weight": 3,
-      "_ct": "Il Collegio di coordinamento, con decisione n. 9724/26, si è pronunciato sul tema del collocamento delle carte di credito revolving da parte di soggetti terzi. Contratti bancari in genere – Validità o efficacia del contratto Credito ai consumatori Carte di credito – Carte revolving Prova – Onere della prova",
-      "_fa": [
-       "bancario"
-      ]
-     }
-    ],
-    "https://www.arbitrobancariofinanziario.it/novita/notizia/nuove-decisioni-22102026": [
-     {
-      "id": "abf-gruppo-2026102220261022",
-      "source": "abf",
-      "sourceLabel": "Arbitro Bancario Finanziario",
-      "kind": "Decisioni ABF",
-      "title": "L'Arbitro Bancario Finanziario ha pubblicato 487 nuove decisioni. I temi più ricorrenti: conto corrente bancario e postale, bonifico, cessione del quinto e delegazione di pagamento, bancomat e carte di debito.",
-      "subtitle": "Conto corrente bancario e postale: 151 · Bonifico: 100 · Cessione del quinto e delegazione di pagamento: 95 · Bancomat e carte di debito: 69",
-      "summary": "",
-      "url": "https://www.arbitrobancariofinanziario.it/decisioni/ricerca/ricerca.html?modDate=2026-10-22&newsDate=2026-10-22",
-      "date": "2026-10-22",
-      "areas": [
-       "bancario"
-      ],
-      "weight": 1,
-      "_ct": "Conto corrente bancario e postale Bonifico Cessione del quinto e delegazione di pagamento Bancomat e carte di debito",
-      "_fa": [
-       "bancario"
-      ]
-     }
-    ],
-    "https://www.arbitrobancariofinanziario.it/novita/notizia/nuove-decisioni-30092026": [
-     {
-      "id": "abf-gruppo-2026093020260930",
-      "source": "abf",
-      "sourceLabel": "Arbitro Bancario Finanziario",
-      "kind": "Decisioni ABF",
-      "title": "L'Arbitro Bancario Finanziario ha pubblicato 500 o più nuove decisioni. I temi più ricorrenti: bonifico, conto corrente bancario e postale, cessione del quinto e delegazione di pagamento, bancomat e carte di debito.",
-      "subtitle": "Bonifico: 107 · Conto corrente bancario e postale: 88 · Cessione del quinto e delegazione di pagamento: 82 · Bancomat e carte di debito: 70",
-      "summary": "",
-      "url": "https://www.arbitrobancariofinanziario.it/decisioni/ricerca/ricerca.html?modDate=2026-09-30&newsDate=2026-09-30",
-      "date": "2026-09-30",
-      "areas": [
-       "bancario"
-      ],
-      "weight": 1,
-      "_ct": "Bonifico Conto corrente bancario e postale Cessione del quinto e delegazione di pagamento Bancomat e carte di debito",
-      "_fa": [
-       "bancario"
-      ]
-     }
-    ]
-   },
-   "news": [
-    "https://www.arbitrobancariofinanziario.it/novita/notizia/nuove-decisioni-20112026",
-    "https://www.arbitrobancariofinanziario.it/novita/notizia/nuove-decisioni-27102026",
-    "https://www.arbitrobancariofinanziario.it/novita/notizia/nuove-decisioni-22102026",
-    "https://www.arbitrobancariofinanziario.it/novita/notizia/nuove-decisioni-30092026"
-   ]
-  }
+  "lastAttempt": "2026-11-26T12:28:24.628Z"
  }
 }

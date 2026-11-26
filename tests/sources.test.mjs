@@ -99,18 +99,17 @@ test('Corte costituzionale (G.U. 1ª S.S.): solo decisioni', async () => {
   assert.ok(items.find((i) => i.id === 'gu-T-260196').areas.includes('penale'));
 });
 
-test('Arbitro Bancario Finanziario', async () => {
+test('Arbitro Bancario Finanziario: solo annunci con link, nessun contenuto copiato', async () => {
   const memo = {};
   const items = await S.abf.fetch({ memo });
   const coord = items.find((i) => i.id === 'abf-2026-9724');
   assert.ok(coord, 'decisione del Collegio di coordinamento presente');
-  assert.match(coord.title, /carte di credito revolving/);
-  assert.match(coord.url, /^https:\/\/www\.arbitrobancariofinanziario\.it\/decisioni\/2026\/10\/Dec-20261022-9724\.pdf$/);
+  assert.ok(!/revolving/i.test(coord.title + coord.subtitle), 'nessuna sintesi copiata dal sito ABF');
+  assert.match(coord.url, /^https:\/\/www\.arbitrobancariofinanziario\.it\/novita\/notizia\//);
   assert.equal(coord.date, '2026-10-27');
   const gruppo = items.find((i) => i.kind === 'Decisioni ABF');
-  assert.ok(gruppo && /60 nuove decisioni/.test(gruppo.title), 'riepilogo del gruppo');
+  assert.ok(gruppo && !/\d+ nuove decisioni|bonifico/i.test(gruppo.title + gruppo.subtitle), 'nessun dato estratto');
   assert.ok(items.every((i) => i.areas.includes('bancario')));
-  // secondo giro: usa la memoria, stesso risultato
   const again = await S.abf.fetch({ memo });
   assert.equal(again.length, items.length);
 });
