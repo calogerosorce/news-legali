@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/**', 'tests/**', '.github/workflows/**']
+    paths: ['scripts/**', 'tests/**', 'config/**', '.github/workflows/**']
 
 permissions:
   contents: write
