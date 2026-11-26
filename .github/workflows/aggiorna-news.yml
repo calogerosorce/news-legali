@@ -20,9 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
 
@@ -43,11 +43,19 @@ jobs:
           git add api data
           if git diff --cached --quiet; then
             echo "Nessuna modifica."
-          else
-            git commit -m "news: aggiornamento $(date -u +'%Y-%m-%d %H:%M') UTC"
-            git pull --rebase --autostash origin main || true
-            git push
+            exit 0
           fi
+          git commit -m "news: aggiornamento $(date -u +'%Y-%m-%d %H:%M') UTC"
+          # Se nel frattempo è arrivato un altro commit (altro giro o modifica al codice),
+          # riallinea e riprova: sui file generati (api/, data/) vince questo giro.
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            echo "Push rifiutato, riallineo e riprovo ($i/5)…"
+            sleep $((i * 5))
+            git pull --rebase -X theirs origin main || { git rebase --abort; git pull --no-rebase -X ours origin main; }
+          done
+          echo "::error::Impossibile pubblicare i JSON dopo 5 tentativi."
+          exit 1
 
       - name: Allarme (email da GitHub se una fonte è ferma)
         if: steps.build.outcome == 'failure'
