@@ -15,6 +15,11 @@ const FIXTURE_MAP = {
   'giurisprudenza_civile': 'cass-civ.html',
   'curia.europa.eu': 'curia.xml',
   'agenziaentrate.gov.it': 'ade.xml',
+  'arbitrobancariofinanziario.it/footer/rss': 'abf-rss.xml',
+  'nuove-decisioni-27102026': 'abf-news-coord.html',
+  'nuove-decisioni-20112026': 'abf-news-gruppo.html',
+  'ricerca.html?modDate=2026-10-27': 'abf-dec-coord.html',
+  'ricerca.html?modDate=2026-11-20': 'abf-dec-gruppo.html',
 };
 
 export async function fetchText(url, { timeoutMs = 25000, retries = 2 } = {}) {

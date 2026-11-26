@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" >
+  <channel>
+    <title>Arbitro Bancario Finanziario</title>
+    <link>https://www.arbitrobancariofinanziario.it</link>
+    <description>Il sito ufficiale dell'Arbitro Bancario Finanziario</description>
+    <language>it</language>
+    <pubDate>Thu, 26 Nov 2026 12:05:30 GMT</pubDate>
+    <managingEditor>webmaster@bancaditalia.it (Web Master)</managingEditor>
+    <webMaster>webmaster@arbitrobancariofinanziario.it (ABF)</webMaster>
+    <copyright>abf_rss-copyright</copyright>
+    <docs>http://www.rssboard.org/rss-specification</docs>
+    <atom:link href="https://www.arbitrobancariofinanziario.it/footer/rss/index.html" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pubblicato un gruppo di decisioni dell&apos;Arbitro Bancario Finanziario</title>
+      <link>https://www.arbitrobancariofinanziario.it/novita/notizia/nuove-decisioni-20112026</link>
+      <author>webmaster@arbitrobancariofinanziario.it (ABF)</author> 
+      <category domain="Notizia">Notizia</category>
+      <description></description>
+      <pubDate>Fri, 20 Nov 2026 13:52:00 GMT</pubDate>
+      <guid isPermaLink="false">e931171e-1020-41ee-a15b-152419f4c75e</guid>
+    </item>
+    <item>
+      <title>Iniziativa formativa congiunta Banca d&apos;Italia e Scuola Superiore della Magistratura - 9, 10 e 11 novembre 2026</title>
+      <link>https://www.arbitrobancariofinanziario.it/novita/notizia/iniziativa-formativa-bi-ssm-9-10-11-novembre-2026</link>
+      <author>webmaster@arbitrobancariofinanziario.it (ABF)</author> 
+      <category domain="Notizia">Notizia</category>
+      <description></description>
+      <pubDate>Tue, 10 Nov 2026 08:30:00 GMT</pubDate>
+      <guid isPermaLink="false">1c9c219e-b214-4b5a-892d-2b7435ff1941</guid>
+    </item>
+    <item>
+      <title>Protocollo di intesa tra Banca d&apos;Italia, CONSOB e IVASS in materia di risoluzione alternativa delle controversie</title>
+      <link>https://www.arbitrobancariofinanziario.it/novita/notizia/protocollo-intesa-bi-consob-ivass-risoluzione-alternativa-controversie</link>
+      <author>webmaster@arbitrobancariofinanziario.it (ABF)</author> 
+      <category domain="Notizia">Notizia</category>
+      <description></description>
+      <pubDate>Tue, 3 Nov 2026 10:00:00 GMT</pubDate>
+      <guid isPermaLink="false">a7be8ee5-5b95-4012-bb21-c76a8eb69238</guid>
+    </item>
+    <item>
+      <title>Tirocini extracurriculari presso la Segreteria tecnica dell&apos;ABF della Sede di Bari della Banca d&apos;Italia</title>
+      <link>https://www.arbitrobancariofinanziario.it/novita/notizia/tirocini-segreteria-abf-bari-2-novembre-2026</link>
+      <author>webmaster@arbitrobancariofinanziario.it (ABF)</author> 
+      <category domain="Notizia">Notizia</category>
+      <description></description>
+      <pubDate>Mon, 2 Nov 2026 11:00:00 GMT</pubDate>
+      <guid isPermaLink="false">2b17767a-5acf-4ac6-a708-2ebd717369e5</guid>
+    </item>
+    <item>
+      <title>Pubblicata una decisione del Collegio di coordinamento dell&apos;Arbitro Bancario Finanziario</title>
+      <link>https://www.arbitrobancariofinanziario.it/novita/notizia/nuove-decisioni-27102026</link>
+      <author>webmaster@arbitrobancariofinanziario.it (ABF)</author> 
+      <category domain="Notizia">Notizia</category>
+      <description></description>
+      <pubDate>Tue, 27 Oct 2026 15:23:00 GMT</pubDate>
+      <guid isPermaLink="false">5d84ff92-b159-4c40-814f-ab29fd3d4989</guid>
+    </item>
+  </channel>
+</rss>         
+   

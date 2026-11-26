@@ -392,4 +392,120 @@ export const agenziaEntrate = {
   },
 };
 
-export const SOURCES = [gazzettaSG, gazzettaS1, cassazionePenale, cassazioneCivile, curiaUE, agenziaEntrate];
+
+// ---------------------------------------------------------------- Arbitro Bancario Finanziario (Banca d'Italia)
+// Il feed RSS annuncia i gruppi di decisioni pubblicati. Per ogni annuncio leggiamo l'elenco
+// (oggetto di ogni decisione) e creiamo: 1 notizia per ogni decisione del Collegio di coordinamento
+// (le più importanti, con la sintesi ufficiale), 1 notizia di riepilogo per ogni gruppo di decisioni.
+
+const ABF_BASE = 'https://www.arbitrobancariofinanziario.it';
+
+function abfDecisions(html) {
+  const i = html.indexOf('pageMgr.objects = [');
+  if (i < 0) return [];
+  const start = html.indexOf('[', i);
+  const end = html.indexOf('];', start);
+  try { return JSON.parse(html.slice(start, end + 1)); } catch { return []; }
+}
+
+const ABF_LABELS = {
+  BFP: 'buoni fruttiferi postali',
+  'CAI Centrale di allarme interbancaria': 'centrale di allarme interbancaria',
+  'Sistemi di informazione creditizia (SIC)': 'segnalazioni nelle banche dati creditizie',
+};
+function abfLabel(c) {
+  return ABF_LABELS[c] || (c === c.toUpperCase() ? c : c.charAt(0).toLowerCase() + c.slice(1));
+}
+
+function abfTopic(o) {
+  return (o.Oggetto || []).map((x) => [x.Categoria, x.SottoCategoria].filter(Boolean).map((t) => t.trim()).join(' – '));
+}
+
+export const abf = {
+  id: 'abf',
+  label: 'Arbitro Bancario Finanziario',
+  url: `${ABF_BASE}/footer/rss/index.html`,
+  async fetch(ctx = {}) {
+    const memo = ctx.memo || {};
+    const xml = await fetchText(this.url);
+    const news = parseRssItems(xml)
+      .map((it) => ({ title: clean(it.title), link: https(clean(it.link)), date: rfcDate(it.pubDate) }))
+      .filter((n) => /decision/i.test(n.title) && /nuove-decisioni/.test(n.link))
+      .slice(0, 8);
+    // Aggiunge gli annunci precedenti elencati nella colonna "Ultime Decisioni" della prima notizia
+    if (news.length) {
+      try {
+        const first = await fetchText(news[0].link);
+        for (const m of first.matchAll(/<a href="(\/novita\/notizia\/nuove-decisioni-(\d{2})(\d{2})(\d{4}))\/?">([\s\S]*?)<\/a>/g)) {
+          const link = ABF_BASE + m[1];
+          if (news.some((n) => n.link.replace(/\/$/, '') === link)) continue;
+          const title = clean((m[5].match(/class="news-title">([\s\S]*?)<\/div>/) || [])[1] || 'Pubblicato un gruppo di decisioni');
+          news.push({ title, link, date: `${m[4]}-${m[3]}-${m[2]}` });
+        }
+      } catch { /* la colonna è un extra: se manca, bastano gli annunci del feed */ }
+    }
+    const done = new Set(memo.news || []);
+    const out = [];
+    for (const n of news) {
+      if (done.has(n.link) && memo.cache?.[n.link]) { out.push(...memo.cache[n.link]); continue; }
+      try {
+        const page = await fetchText(n.link);
+        const searchHref = decodeEntities((page.match(/href="(\/decisioni\/ricerca\/ricerca\.html\?[^"]+)"/) || [])[1] || '');
+        const sintesi = clean((page.match(/(Il Collegio di coordinamento[^<]{20,600})/) || [])[1] || '');
+        if (!searchHref) continue;
+        const listUrl = ABF_BASE + searchHref;
+        const decs = abfDecisions(await fetchText(listUrl));
+        if (!decs.length) continue;
+        const made = [];
+        const date = sanitizeDate(n.date);
+        if (/coordinamento/i.test(n.title)) {
+          for (const d of decs) {
+            const topics = abfTopic(d);
+            made.push(withClass({
+              id: `abf-${d.Anno}-${d.Numero}`,
+              source: 'abf',
+              sourceLabel: 'Arbitro Bancario Finanziario',
+              kind: 'Collegio di coordinamento ABF',
+              title: truncate(sintesi.replace(/\s*\.?$/, '.') || `Decisione su: ${topics.join('; ')}`, 260),
+              subtitle: `Decisione n. ${d.Numero}/${d.Anno} — ${topics.slice(0, 3).join('; ')}`,
+              summary: '',
+              url: d.Url ? ABF_BASE + d.Url : listUrl,
+              date,
+              areas: ['bancario'],
+              weight: 3,
+            }, `${sintesi} ${topics.join(' ')}`, ['bancario']));
+          }
+        } else {
+          const count = {};
+          for (const d of decs) for (const o of d.Oggetto || []) if (o.Categoria) count[o.Categoria.trim()] = (count[o.Categoria.trim()] || 0) + 1;
+          const top = Object.entries(count).sort((a, b) => b[1] - a[1]).slice(0, 4);
+          const n0 = decs.length >= 500 ? '500 o più' : String(decs.length);
+          made.push(withClass({
+            id: `abf-gruppo-${searchHref.replace(/\D+/g, '')}`,
+            source: 'abf',
+            sourceLabel: 'Arbitro Bancario Finanziario',
+            kind: 'Decisioni ABF',
+            title: `L'Arbitro Bancario Finanziario ha pubblicato ${n0} nuove decisioni. I temi più ricorrenti: ${top.map(([c]) => abfLabel(c)).join(', ')}.`,
+            subtitle: top.map(([c, k]) => `${c}: ${k}`).join(' · '),
+            summary: '',
+            url: listUrl,
+            date,
+            areas: ['bancario'],
+            weight: 1,
+          }, top.map(([c]) => c).join(' '), ['bancario']));
+        }
+        out.push(...made);
+        done.add(n.link);
+        memo.cache = { ...(memo.cache || {}), [n.link]: made };
+      } catch (e) {
+        ctx.log?.(`  ABF: ${n.link} non letto (${e.message})`);
+      }
+      await delay(300);
+    }
+    memo.news = [...done].slice(-30);
+    if (memo.cache) memo.cache = Object.fromEntries(Object.entries(memo.cache).filter(([k]) => memo.news.includes(k)));
+    return out;
+  },
+};
+
+export const SOURCES = [gazzettaSG, gazzettaS1, cassazionePenale, cassazioneCivile, curiaUE, agenziaEntrate, abf];
