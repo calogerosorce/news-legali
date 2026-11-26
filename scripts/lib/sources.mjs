@@ -42,7 +42,8 @@ const GU_RUMORE = [
   /emissione di francobolli|francobollo/i, /graduatori/i, /lotteri/i,
   /^nomina\b/i, /\bnomina (del|della|di) (dott|prof|sig|avv|ing|gen)/i, /commissario straordinario/i,
   /consiglio comunale/i, /casa religiosa|ente ecclesiastico|riconoscimento della personalit[aà] giuridica/i,
-  /notai dispensandi|concorso notarile|trasferimento di notai/i, /\bencomio\b|onorificenz/i,
+  /notai dispensandi|concorso notarile|trasferimento di notai/i,
+  /testo coordinato del decreto-legge|ripubblicazione del testo/i, /\bencomio\b|onorificenz/i,
 ];
 
 function guHead(h) {
