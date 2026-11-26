@@ -57,6 +57,15 @@ export const AREAS = {
       '!contratti di credito', '!garanzia autonoma', '!polizza fideiussoria', '!opposizione a decreto ingiuntivo',
     ],
   },
+  partecivile: {
+    label: 'Parte civile e vittime di reato',
+    keywords: [
+      '!parte civile', '!parti civili', '!persona offesa', '!persone offese', '!vittima del reato',
+      '!vittime di reato', '!vittime del reato', '!vittima di reato', '!risarcimento del danno da reato',
+      '!costituzione di parte civile', '!interessi civili', '!responsabile civile', '!provvisionale',
+      '!danno da reato', '!fondo per le vittime', '!vittime di reati intenzionali violenti',
+    ],
+  },
   famiglia: {
     label: 'Famiglia e minori',
     keywords: [

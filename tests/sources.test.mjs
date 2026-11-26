@@ -126,4 +126,7 @@ test('classificazione', () => {
   assert.ok(classify('Opposizione a decreto ingiuntivo su contratto di conto corrente').includes('bancario'));
   assert.ok(!classify('Superbonus 110% - cessione del credito d\'imposta').includes('bancario'), 'crediti fiscali esclusi');
   assert.ok(classify('Costituzione di parte civile nel processo').includes('penale'));
+  assert.ok(classify('Impugnazione per i soli interessi civili').includes('partecivile'));
+  assert.ok(!classify('Ricorso della parte integralmente vittoriosa').includes('partecivile'));
+  assert.ok(!classify('Misure di sicurezza - Libertà vigilata').includes('partecivile'));
 });

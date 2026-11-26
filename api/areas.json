@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-26T12:24:26.914Z",
+ "updatedAt": "2026-11-26T12:27:57.643Z",
  "areas": [
   {
    "id": "penale",
@@ -18,6 +18,12 @@
    "label": "Bancario e finanziario",
    "count": 4,
    "url": "api/bancario.json"
+  },
+  {
+   "id": "partecivile",
+   "label": "Parte civile e vittime di reato",
+   "count": 3,
+   "url": "api/partecivile.json"
   },
   {
    "id": "famiglia",

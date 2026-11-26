@@ -1,6 +1,6 @@
 {
   "_istruzioni": "Un profilo per ogni studio cliente. 'aree' = materie seguite (penale, civile, famiglia, lavoro, tributario, amministrativo, immigrazione, professione, ue, generale). Modificando qui le aree, il sito del cliente si aggiorna da solo senza toccare il suo HTML.",
-  "santina-lattuca": { "nome": "Studio Legale Santina Lattuca (Ribera)", "aree": ["bancario", "civile", "penale"] },
+  "santina-lattuca": { "nome": "Studio Legale Santina Lattuca (Ribera)", "aree": ["bancario", "partecivile"] },
   "esempio-penalista": { "nome": "Esempio studio penalista", "aree": ["penale", "professione"] },
   "esempio-generalista": { "nome": "Esempio studio generalista", "aree": ["civile", "famiglia", "lavoro", "penale", "tributario", "professione"] }
 }
