@@ -5,6 +5,10 @@ const UA =
 
 // Per i test: NEWS_FIXTURES=cartella -> legge i file locali invece di scaricare.
 const FIXTURE_MAP = {
+  '30giorni/serie_generale': 'gu-sg-30.html',
+  'serie_generale/caricaDettaglio': 'gu-sg-det.html',
+  '30giorni/corte_costituzionale': 'gu-s1-30.html',
+  'corte_costituzionale/caricaDettaglio': 'gu-s1-det.html',
   'gazzettaufficiale.it/rss/SG': 'gu-sg.xml',
   'gazzettaufficiale.it/rss/S1': 'gu-s1.xml',
   'giurisprudenza_penale': 'cass-pen.html',

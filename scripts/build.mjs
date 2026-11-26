@@ -49,7 +49,8 @@ async function main() {
   const report = [];
 
   if (!offline) {
-    const results = await Promise.allSettled(SOURCES.map((s) => s.fetch()));
+    const memos = Object.fromEntries(SOURCES.map((s) => [s.id, { ...(state[s.id]?.memo || {}) }]));
+    const results = await Promise.allSettled(SOURCES.map((s) => s.fetch({ memo: memos[s.id], log })));
     results.forEach((r, idx) => {
       const s = SOURCES[idx];
       const st = state[s.id] || {};
@@ -74,6 +75,7 @@ async function main() {
           lastCount: items.length, lastAdded: added,
           lastError: suspicious ? 'Nessuna notizia estratta (layout cambiato?)' : null,
           lastAttempt: now,
+          memo: memos[s.id],
         };
         log(`✔ ${s.label}: ${items.length} notizie (${added} nuove)${suspicious ? ' ⚠ 0 estratte' : ''}`);
       } else {
@@ -118,7 +120,7 @@ async function main() {
   await writeFile(path.join(API, 'areas.json'), JSON.stringify({ updatedAt: now, areas: areasIndex }, null, 1));
   await writeFile(path.join(API, 'status.json'), JSON.stringify({
     updatedAt: now, totalItems: items.length, ai,
-    sources: Object.entries(state).map(([id, s]) => ({ id, ...s })),
+    sources: Object.entries(state).map(([id, { memo, ...s }]) => ({ id, ...s })),
   }, null, 1));
 
   log(`Archivio: ${items.length} notizie. Per area: ${areasIndex.map((a) => `${a.id}=${a.count}`).join(', ')}`);

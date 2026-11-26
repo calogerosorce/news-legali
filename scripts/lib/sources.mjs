@@ -49,86 +49,178 @@ function guTypeOf(title) {
   return GU_TYPES_RILEVANTI.find((t) => T.startsWith(t)) || null;
 }
 
+// "legittimita'" -> "legittimità" (la G.U. usa l'apostrofo al posto dell'accento)
+export function fixAccents(t = '') {
+  const map = { a: 'à', e: 'è', i: 'ì', o: 'ò', u: 'ù', A: 'À', E: 'È', I: 'Ì', O: 'Ò', U: 'Ù' };
+  return t.replace(/([a-zA-Z]{2,})([aeiouAEIOU])'(?=[\s,.;:)\]»-]|$)/g, (m, pre, v) =>
+    /^(po|de|da|ne|su|co|mo|to)$/i.test(pre + v) ? m : pre + map[v]);
+}
+
+const GU_BASE = 'https://www.gazzettaufficiale.it';
+const delay = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/** Costruisce la notizia per un atto della Serie Generale (null = da scartare). */
+function makeSG({ head, emettitore = '', desc, code, pubDate, issueLabel, url }) {
+  head = clean(head); desc = fixAccents(clean(desc).replace(/\s*\(\d{2}[A-Z]\d{5}\)\s*\.?\s*$/, ''));
+  if (!head || !desc) return null;
+  const text = `${emettitore} ${head} ${desc}`;
+  if (GU_RUMORE.some((r) => r.test(text))) return null;
+  const tipo = guTypeOf(head);
+  const em = (emettitore || head).toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const emittenteOk = GU_EMITTENTI_RILEVANTI.some((e) => em.startsWith(e));
+  const areas = classify(text);
+  // Atti normativi primari sempre; gli altri solo se l'emittente è rilevante e c'è un'area.
+  if (!tipo && !(emittenteOk && areas.length)) return null;
+  if (!areas.length) areas.push('generale');
+  const fullHead = emettitore && !head.toUpperCase().startsWith(emettitore.toUpperCase()) ? `${emettitore} - ${head}` : head;
+  return {
+    id: `gu-${code}`,
+    source: 'gu-sg',
+    sourceLabel: 'Gazzetta Ufficiale',
+    kind: tipo ? sentenceCase(tipo.toLowerCase()) : guMinorKind(fullHead),
+    title: truncate(sentenceCase(desc), 220),
+    subtitle: `${fixAccents(guHead(fullHead))}${issueLabel ? ' — ' + issueLabel : ''}`,
+    summary: '',
+    url,
+    date: sanitizeDate(pubDate || italianDate(head)),
+    areas,
+    weight: tipo ? 3 : 1,
+  };
+}
+
+/** Notizia per una decisione della Corte costituzionale (G.U. 1ª Serie Speciale). */
+function makeS1({ head, desc, code, pubDate, issueLabel, url }) {
+  head = clean(head);
+  if (/promovimento|ricorso/i.test(head) || !/\b(sentenza|ordinanza)\b/i.test(head)) return null;
+  const body = fixAccents(clean(desc)
+    .replace(/\s*\((?:T-)?\d{2}[A-Z]?\d{4,6}\)\s*\.?\s*$/, '')
+    .replace(/\s*\.{3,}\s*$/, '…'))
+    .replace(/^giudizio di legittimit[àa]'? costituzionale[^.]*\.\s*/i, '')
+    .replace(/^giudizio[^.]{0,80}conflitto[^.]*\.\s*/i, '');
+  const areas = classify(`${head} ${body}`);
+  if (!areas.length) areas.push('generale');
+  const num = (head.match(/n\.\s*(\d+)/i) || [])[1];
+  return {
+    id: `gu-${code}`,
+    source: 'gu-s1',
+    sourceLabel: 'Corte costituzionale',
+    kind: /sentenza/i.test(head) ? 'Sentenza Corte cost.' : 'Ordinanza Corte cost.',
+    title: truncate(body || head, 240),
+    subtitle: `${/sentenza/i.test(head) ? 'Sentenza' : 'Ordinanza'}${num ? ' n. ' + num : ''} ${(head.match(/(\d{1,2}\s+\w+(?:\s+\d{4})?\s*-\s*\d{1,2}\s+\w+\s+\d{4}|\d{1,2}\s+\w+\s+\d{4})/) || [''])[0]}`.trim() + (issueLabel ? ' — ' + issueLabel : ''),
+    summary: '',
+    url,
+    date: sanitizeDate(pubDate),
+    areas,
+    weight: 3,
+  };
+}
+
+/**
+ * Legge i sommari degli ultimi 30 giorni dal sito della G.U. (pagine "30giorni").
+ * Scarica solo i numeri non ancora elaborati + gli ultimi 2 (per eventuali aggiornamenti).
+ */
+async function guEntriesFromHtml(slug, memo) {
+  const list = await fetchText(`${GU_BASE}/30giorni/${slug}`);
+  const re = new RegExp(`href="(/gazzetta/${slug}/caricaDettaglio\\?[^"]+)"`, 'g');
+  const links = [...new Set([...list.matchAll(re)].map((m) => decodeEntities(m[1])))];
+  const issues = links.map((l) => ({
+    link: l,
+    date: (l.match(/dataPubblicazioneGazzetta=(\d{4}-\d{2}-\d{2})/) || [])[1],
+    num: (l.match(/numeroGazzetta=(\d+)/) || [])[1],
+  })).filter((i) => i.date && i.num).sort((a, b) => a.date.localeCompare(b.date) || a.num - b.num);
+  if (!issues.length) throw new Error('nessun numero trovato nella pagina 30giorni');
+
+  const done = new Set(memo.issues || []);
+  const recent = new Set(issues.slice(-2).map((i) => i.link));
+  const todo = issues.filter((i) => !done.has(i.link) || recent.has(i.link));
+  const entries = [];
+  for (const iss of todo) {
+    let html;
+    try { html = await fetchText(GU_BASE + iss.link, { retries: 1 }); } catch { continue; }
+    const serieLabel = slug === 'serie_generale' ? 'G.U. Serie Generale' : 'G.U. 1ª Serie Speciale';
+    const issueLabel = `${serieLabel} n. ${iss.num} del ${iss.date.split('-').reverse().join('-')}`;
+    const marks = [...html.matchAll(/<span class="(rubrica|emettitore|risultato)">/g)];
+    let sezione = '', emettitore = '';
+    marks.forEach((m, k) => {
+      const chunk = html.slice(m.index + m[0].length, k + 1 < marks.length ? marks[k + 1].index : undefined);
+      if (m[1] === 'rubrica') { sezione = clean(chunk.split('</span>')[0]); emettitore = ''; return; }
+      if (m[1] === 'emettitore') { emettitore = clean(chunk.split('</span>')[0]); return; }
+      const anchors = [...chunk.matchAll(/<a href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
+      if (anchors.length < 2) return;
+      const code = (anchors[0][1].match(/codiceRedazionale=([A-Z0-9-]+)/) || [])[1];
+      const head = (anchors[0][2].match(/<span class="data">([\s\S]*?)<\/span>/) || [])[1] || anchors[0][2];
+      const desc = anchors[1][2].replace(/<span class="(riferimento|pagina)">[\s\S]*?<\/span>/g, '');
+      if (!code) return;
+      entries.push({ sezione, emettitore, head, desc, code, pubDate: iss.date, issueLabel });
+    });
+    done.add(iss.link);
+    await delay(400);
+  }
+  memo.issues = [...done].slice(-80);
+  return entries;
+}
+
+function eliUrl(date, code) {
+  const [y, m, d] = date.split('-');
+  return `${GU_BASE}/eli/id/${y}/${m}/${d}/${code}/SG`;
+}
+
 export const gazzettaSG = {
   id: 'gu-sg',
   label: 'Gazzetta Ufficiale',
-  url: 'https://www.gazzettaufficiale.it/rss/SG',
-  async fetch() {
-    const xml = await fetchText(this.url);
-    const issue = channelTag(xml, 'description'); // "Gazzetta Ufficiale - Serie Generale n. 275 del 25-11-2026"
-    const out = [];
-    for (const it of parseRssItems(xml)) {
-      const head = clean(it.title); // "DECRETO LEGISLATIVO 25 novembre 2026, n.216"
-      const rubrica = clean(it.content || it.description).replace(/\s*\(\d{2}[A-Z]\d{5}\)\s*\.?$/, '');
-      if (!head || !rubrica) continue;
-      const text = `${head} ${rubrica}`;
-      if (GU_RUMORE.some((r) => r.test(text))) continue;
-
-      const tipo = guTypeOf(head);
-      const emittente = GU_EMITTENTI_RILEVANTI.find((e) =>
-        head.toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g, '').startsWith(e));
-      const areas = classify(text);
-      // Tieni: atti normativi primari sempre; altri solo se emittente rilevante e area trovata.
-      if (!tipo && !(emittente && areas.length)) continue;
-      if (!areas.length) areas.push('generale');
-
-      const link = https(it.link);
-      const code = (link.match(/\/(\d{2}[A-Z]\d{5})\//) || [])[1] || link;
-      const date = sanitizeDate(rfcDate(it.pubDate) || italianDate(head));
-      out.push({
-        id: `gu-${code}`,
-        source: this.id,
-        sourceLabel: 'Gazzetta Ufficiale',
-        kind: tipo ? sentenceCase(tipo) : guMinorKind(head),
-        title: truncate(sentenceCase(rubrica), 220),
-        subtitle: `${guHead(head)}${issue ? ' — ' + issue.replace(/^Gazzetta Ufficiale - /, 'G.U. ') : ''}`,
-        summary: '',
-        url: link,
-        date,
-        areas,
-        weight: tipo ? 3 : 1,
-      });
+  url: `${GU_BASE}/30giorni/serie_generale`,
+  rss: `${GU_BASE}/rss/SG`,
+  async fetch(ctx = {}) {
+    const memo = ctx.memo || {};
+    try {
+      const entries = await guEntriesFromHtml('serie_generale', memo);
+      if (entries.length || (memo.issues || []).length) {
+        return entries.map((e) => makeSG({ ...e, url: eliUrl(e.pubDate, e.code) })).filter(Boolean);
+      }
+    } catch (e) {
+      ctx.log?.(`  G.U. pagine 30 giorni non disponibili (${e.message}): uso il feed RSS`);
     }
-    return out;
+    // Riserva: feed RSS (solo l'ultimo numero)
+    const xml = await fetchText(this.rss);
+    const issue = channelTag(xml, 'description').replace(/^Gazzetta Ufficiale - /, 'G.U. ');
+    return parseRssItems(xml).map((it) => {
+      const link = https(it.link);
+      const code = (link.match(/\/(\d{2}[A-Z]\d{5})\//) || [])[1];
+      if (!code) return null;
+      return makeSG({ head: it.title, desc: it.content || it.description, code, pubDate: rfcDate(it.pubDate), issueLabel: issue, url: link });
+    }).filter(Boolean);
   },
 };
 
 // ---------------------------------------------------------------- GU 1a Serie Speciale (Corte costituzionale)
-// Teniamo solo le decisioni della Corte (sentenze/ordinanze), non gli atti di promovimento/ricorsi.
+// Solo le decisioni della Corte (sentenze/ordinanze), non gli atti di promovimento/ricorsi.
 
 export const gazzettaS1 = {
   id: 'gu-s1',
   label: 'Corte costituzionale (G.U. 1ª S.S.)',
-  url: 'https://www.gazzettaufficiale.it/rss/S1',
-  async fetch() {
-    const xml = await fetchText(this.url);
-    const out = [];
-    for (const it of parseRssItems(xml)) {
-      const head = clean(it.title);
-      if (/promovimento|ricorso/i.test(head)) continue;
-      if (!/\b(sentenza|ordinanza)\b/i.test(head)) continue;
-      let body = clean(it.content || it.description)
-        .replace(/\s*\.{3,}.*$/, '')
-        .replace(/\s*\(\d{2}[A-Z]\d{5}\)\s*\.?$/, '');
-      const link = https(it.link);
-      const code = (link.match(/\/(\d{2}[A-Z]\d{5})\//) || [])[1] || link;
-      const areas = classify(`${head} ${body}`);
-      if (!areas.length) areas.push('generale');
-      out.push({
-        id: `gu-${code}`,
-        source: this.id,
-        sourceLabel: 'Corte costituzionale',
-        kind: /sentenza/i.test(head) ? 'Sentenza Corte cost.' : 'Ordinanza Corte cost.',
-        title: truncate(body.replace(/^(sentenza|ordinanza)[^.]*?\.\s*/i, '') || head, 240),
-        subtitle: sentenceCase(head),
-        summary: '',
-        url: link,
-        date: sanitizeDate(rfcDate(it.pubDate) || italianDate(head)),
-        areas,
-        weight: 3,
-      });
+  url: `${GU_BASE}/30giorni/corte_costituzionale`,
+  rss: `${GU_BASE}/rss/S1`,
+  async fetch(ctx = {}) {
+    const memo = ctx.memo || {};
+    try {
+      const entries = await guEntriesFromHtml('corte_costituzionale', memo);
+      return entries
+        .filter((e) => /sentenze|ordinanze della corte/i.test(e.sezione))
+        .map((e) => makeS1({
+          ...e,
+          url: `${GU_BASE}/atto/corte_costituzionale/caricaDettaglioAtto/originario?atto.dataPubblicazioneGazzetta=${e.pubDate}&atto.codiceRedazionale=${e.code}`,
+        }))
+        .filter(Boolean);
+    } catch (e) {
+      ctx.log?.(`  G.U. 1ª S.S. pagine 30 giorni non disponibili (${e.message}): uso il feed RSS`);
     }
-    return out;
+    const xml = await fetchText(this.rss);
+    const issue = channelTag(xml, 'description').replace(/^Gazzetta Ufficiale - /, 'G.U. ');
+    return parseRssItems(xml).map((it) => {
+      const link = https(it.link);
+      const code = (link.match(/\/([A-Z]?-?\d{2}[A-Z]?\d{4,6})\//) || [])[1] || link.replace(/\W+/g, '').slice(-20);
+      return makeS1({ head: it.title, desc: it.content || it.description, code, pubDate: rfcDate(it.pubDate), issueLabel: issue, url: link });
+    }).filter(Boolean);
   },
 };
 

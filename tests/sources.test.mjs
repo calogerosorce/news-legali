@@ -52,20 +52,51 @@ test('Agenzia delle Entrate', async () => {
   checkItems(await S.agenziaEntrate.fetch(), 10);
 });
 
-test('Gazzetta Ufficiale SG: filtra il rumore', async () => {
-  const items = await S.gazzettaSG.fetch();
-  checkItems(items, 1);
-  assert.ok(!items.some((i) => /medicinal|prosciutto|nomina/i.test(i.title)), 'niente farmaci/consorzi/nomine');
-  const forense = items.find((i) => /ordinamento forense/i.test(i.title));
-  if (forense) {
-    assert.ok(forense.areas.includes('professione'));
-    assert.match(forense.subtitle, /^Decreto legislativo 25 novembre 2026, n\. 216/);
-  }
+test('Gazzetta Ufficiale SG (pagine 30 giorni): filtra il rumore', async () => {
+  const memo = {};
+  const items = await S.gazzettaSG.fetch({ memo });
+  checkItems(items, 3);
+  assert.ok(!items.some((i) => /colli berici|disciplinare/i.test(i.title)), 'niente DOP/consorzi');
+  const pct = items.find((i) => i.id === 'gu-26A06999');
+  assert.ok(pct && pct.areas.includes('professione'), 'decreto Giustizia su PCT in professione');
+  assert.equal(pct.kind, 'Decreto ministeriale');
+  assert.match(pct.subtitle, /^Ministero della giustizia - decreto 10 novembre 2026 — G\.U\. Serie Generale n\. 274 del 24-11-2026$/);
+  const legge = items.find((i) => i.id === 'gu-26G00235');
+  assert.equal(legge.kind, 'Legge');
+  assert.equal(legge.url, 'https://www.gazzettaufficiale.it/eli/id/2026/11/24/26G00235/SG');
+  assert.equal(memo.issues.length, 1, 'numero elaborato memorizzato');
 });
 
-test('GU 1ª serie speciale (se fixture presente)', { skip: !existsSync(path.join(FIX, 'gu-s1.xml')) }, async () => {
-  const items = await S.gazzettaS1.fetch();
-  assert.ok(!items.some((i) => /promovimento|ricorso/i.test(i.subtitle)));
+test('Gazzetta Ufficiale SG (riserva RSS)', async () => {
+  const { gazzettaSG } = S;
+  const items = await gazzettaSG.fetch.call({ ...gazzettaSG, url: 'x' }, { memo: {} }); // pagine ok
+  assert.ok(items.length);
+  // simula pagine 30giorni non raggiungibili -> usa RSS
+  const rssOnly = await (async () => {
+    const orig = process.env.NEWS_FIXTURES;
+    const { mkdtemp, copyFile } = await import('node:fs/promises');
+    const os = await import('node:os');
+    const dir = await mkdtemp(path.join(os.tmpdir(), 'nl-'));
+    await copyFile(path.join(FIX, 'gu-sg.xml'), path.join(dir, 'gu-sg.xml'));
+    process.env.NEWS_FIXTURES = dir;
+    try { return await gazzettaSG.fetch({ memo: {} }); } finally { process.env.NEWS_FIXTURES = orig; }
+  })();
+  const forense = rssOnly.find((i) => /ordinamento forense/i.test(i.title));
+  assert.ok(forense && forense.areas.includes('professione'));
+  assert.match(forense.subtitle, /^Decreto legislativo 25 novembre 2026, n\. 216/);
+  assert.ok(!rssOnly.some((i) => /medicinal|prosciutto|nomina/i.test(i.title)), 'niente farmaci/consorzi/nomine');
+});
+
+test('Corte costituzionale (G.U. 1ª S.S.): solo decisioni', async () => {
+  const items = await S.gazzettaS1.fetch({ memo: {} });
+  assert.equal(items.length, 2, 'solo le 2 sentenze, niente atti di promovimento');
+  const adoz = items.find((i) => i.id === 'gu-T-260194');
+  assert.ok(adoz.areas.includes('famiglia'), 'adozione -> famiglia');
+  assert.match(adoz.title, /^Adozione e affidamento/);
+  assert.match(adoz.title, /Disponibilità/, 'accenti corretti');
+  assert.ok(!/\(T-260194\)|\.{3}/.test(adoz.title));
+  assert.match(adoz.subtitle, /^Sentenza n\. 194 7 ottobre - 12 novembre 2026 — G\.U\. 1ª Serie Speciale n\. 46/);
+  assert.ok(items.find((i) => i.id === 'gu-T-260196').areas.includes('penale'));
 });
 
 test('classificazione', () => {
