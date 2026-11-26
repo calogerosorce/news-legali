@@ -146,7 +146,13 @@ async function main() {
     if (slug.startsWith('_') || !/^[a-z0-9-]+$/.test(slug)) continue;
     const aree = (cfg.aree || []).filter((a) => areaIds.includes(a));
     if (!aree.length) { log(`⚠ studio ${slug}: nessuna area valida`); continue; }
-    const list = items.filter((i) => i.areas?.some((a) => aree.includes(a))).slice(0, PER_STUDIO).map(pub);
+    // "escludi": scarta le notizie di aree non pertinenti (es. lavoro per chi fa successioni),
+    // salvo che riguardino anche la materia principale dello studio (la prima della lista).
+    const escludi = (cfg.escludi || []).filter((a) => areaIds.includes(a));
+    const list = items
+      .filter((i) => i.areas?.some((a) => aree.includes(a)))
+      .filter((i) => !escludi.length || i.areas.includes(aree[0]) || !i.areas.some((a) => escludi.includes(a)))
+      .slice(0, PER_STUDIO).map(pub);
     await writeFile(path.join(API, 'studi', `${slug}.json`), JSON.stringify({
       ...meta({ studio: slug, nome: cfg.nome || slug }),
       aree: aree.map((a) => ({ id: a, label: AREAS[a]?.label || 'Novità normative' })),
