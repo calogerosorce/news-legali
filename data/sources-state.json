@@ -2,11 +2,11 @@
  "gu-sg": {
   "label": "Gazzetta Ufficiale",
   "url": "https://www.gazzettaufficiale.it/30giorni/serie_generale",
-  "lastOk": "2026-11-27T15:56:32.141Z",
+  "lastOk": "2026-11-27T15:58:19.911Z",
   "lastCount": 4,
   "lastAdded": 0,
   "lastError": null,
-  "lastAttempt": "2026-11-27T15:56:32.141Z",
+  "lastAttempt": "2026-11-27T15:58:19.911Z",
   "memo": {
    "issues": [
     "/gazzetta/serie_generale/caricaDettaglio?dataPubblicazioneGazzetta=2026-10-28&numeroGazzetta=251&elenco30giorni=true",
@@ -41,11 +41,11 @@
  "gu-s1": {
   "label": "Corte costituzionale (G.U. 1ª S.S.)",
   "url": "https://www.gazzettaufficiale.it/30giorni/corte_costituzionale",
-  "lastOk": "2026-11-27T15:56:32.141Z",
+  "lastOk": "2026-11-27T15:58:19.911Z",
   "lastCount": 13,
   "lastAdded": 0,
   "lastError": null,
-  "lastAttempt": "2026-11-27T15:56:32.141Z",
+  "lastAttempt": "2026-11-27T15:58:19.911Z",
   "memo": {
    "issues": [
     "/gazzetta/corte_costituzionale/caricaDettaglio?dataPubblicazioneGazzetta=2026-10-28&numeroGazzetta=43&elenco30giorni=true",
@@ -59,51 +59,51 @@
  "cass-pen": {
   "label": "Cassazione penale",
   "url": "https://www.cortedicassazione.it/it/giurisprudenza_penale.page",
-  "lastOk": "2026-11-27T15:56:32.141Z",
+  "lastOk": "2026-11-27T15:58:19.911Z",
   "lastCount": 12,
   "lastAdded": 0,
   "lastError": null,
-  "lastAttempt": "2026-11-27T15:56:32.141Z",
+  "lastAttempt": "2026-11-27T15:58:19.911Z",
   "memo": {}
  },
  "cass-civ": {
   "label": "Cassazione civile",
   "url": "https://www.cortedicassazione.it/it/giurisprudenza_civile.page",
-  "lastOk": "2026-11-27T15:56:32.141Z",
+  "lastOk": "2026-11-27T15:58:19.911Z",
   "lastCount": 15,
   "lastAdded": 0,
   "lastError": null,
-  "lastAttempt": "2026-11-27T15:56:32.141Z",
+  "lastAttempt": "2026-11-27T15:58:19.911Z",
   "memo": {}
  },
  "curia": {
   "label": "Corte di giustizia UE",
   "url": "https://curia.europa.eu/site/rss.jsp?lang=it&secondLang=en",
-  "lastOk": "2026-11-27T15:56:32.141Z",
+  "lastOk": "2026-11-27T15:58:19.911Z",
   "lastCount": 8,
   "lastAdded": 0,
   "lastError": null,
-  "lastAttempt": "2026-11-27T15:56:32.141Z",
+  "lastAttempt": "2026-11-27T15:58:19.911Z",
   "memo": {}
  },
  "ade": {
   "label": "Agenzia delle Entrate",
   "url": "https://www.agenziaentrate.gov.it/portale/c/portal/rss/entrate?idrss=0753fcb1-1a42-4f8c-f40d-02793c6aefb4",
-  "lastOk": "2026-11-27T15:56:32.141Z",
+  "lastOk": "2026-11-27T15:58:19.911Z",
   "lastCount": 20,
   "lastAdded": 0,
   "lastError": null,
-  "lastAttempt": "2026-11-27T15:56:32.141Z",
+  "lastAttempt": "2026-11-27T15:58:19.911Z",
   "memo": {}
  },
  "abf": {
   "label": "Arbitro Bancario Finanziario",
   "url": "https://www.arbitrobancariofinanziario.it/footer/rss/index.html",
-  "lastOk": "2026-11-27T15:56:32.141Z",
+  "lastOk": "2026-11-27T15:58:19.911Z",
   "lastCount": 4,
   "lastAdded": 0,
   "lastError": null,
-  "lastAttempt": "2026-11-27T15:56:32.141Z",
+  "lastAttempt": "2026-11-27T15:58:19.911Z",
   "memo": {
    "cache": {
     "https://www.arbitrobancariofinanziario.it/novita/notizia/nuove-decisioni-20112026": [
