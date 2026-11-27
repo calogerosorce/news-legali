@@ -85,7 +85,15 @@ function makeSG({ head, emettitore = '', desc, code, pubDate, issueLabel, url })
   const areas = classify(text);
   // Atti normativi primari sempre; gli altri solo se l'emittente è rilevante e c'è un'area.
   if (!tipo && !(emittenteOk && areas.length)) return null;
+  // Accordi/intese della Conferenza Stato-Regioni o Unificata: tenuti solo se toccano una materia precisa
+  const conferenza = /conferenza (unificata|permanente)/i.test(`${emettitore} ${head}`);
+  const deboli = ['civile', 'amministrativo', 'professione', 'generale'];
+  if (conferenza && !areas.some((a) => !deboli.includes(a))) return null;
   if (!areas.length) areas.push('generale');
+  if (conferenza) {
+    desc = desc.replace(/^(accordo|intesa),?\s+ai sensi dell'articolo [^,]+(, comma [^,]+)?(, lettera [^,]+\))?,? del decreto legislativo 28 agosto 1997, n\. 281,?\s*(tra il governo[^,]*(, [^,]*)*? (?=concernente|relativo|sul|sulla|per|di |in materia))?/i,
+      (m, tipoAtto) => `${tipoAtto.charAt(0).toUpperCase() + tipoAtto.slice(1).toLowerCase()} Stato-Regioni `);
+  }
   const fullHead = emettitore && !head.toUpperCase().startsWith(emettitore.toUpperCase()) ? `${emettitore} - ${head}` : head;
   return withClass({
     id: `gu-${code}`,

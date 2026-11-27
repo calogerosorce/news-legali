@@ -110,6 +110,8 @@ async function main() {
     if (i._ct == null) continue;
     if (i.source === 'gu-sg' && isGuNoise(i._ct)) { byId.delete(id); continue; }
     const areas = classify(i._ct, i._fa || []);
+    if (i.source === 'gu-sg' && /conferenza (unificata|permanente)/i.test(i._ct)
+        && !areas.some((a) => !['civile', 'amministrativo', 'professione', 'generale'].includes(a))) { byId.delete(id); continue; }
     i.areas = areas.length ? areas : ['generale'];
   }
 

@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-27T15:49:39.128Z",
+ "updatedAt": "2026-11-27T15:56:14.110Z",
  "areas": [
   {
    "id": "penale",
@@ -10,7 +10,7 @@
   {
    "id": "civile",
    "label": "Civile",
-   "count": 18,
+   "count": 17,
    "url": "api/civile.json"
   },
   {
@@ -64,7 +64,7 @@
   {
    "id": "amministrativo",
    "label": "Amministrativo",
-   "count": 8,
+   "count": 7,
    "url": "api/amministrativo.json"
   },
   {
