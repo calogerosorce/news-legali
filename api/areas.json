@@ -1,10 +1,10 @@
 {
- "updatedAt": "2026-11-27T15:49:25.706Z",
+ "updatedAt": "2026-11-27T15:49:39.128Z",
  "areas": [
   {
    "id": "penale",
    "label": "Penale",
-   "count": 26,
+   "count": 29,
    "url": "api/penale.json"
   },
   {
@@ -34,7 +34,7 @@
   {
    "id": "infortunistica",
    "label": "Circolazione stradale e infortuni",
-   "count": 1,
+   "count": 2,
    "url": "api/infortunistica.json"
   },
   {
@@ -58,7 +58,7 @@
   {
    "id": "tributario",
    "label": "Tributario e fiscale",
-   "count": 32,
+   "count": 33,
    "url": "api/tributario.json"
   },
   {

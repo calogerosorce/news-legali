@@ -1,6 +1,82 @@
 {
- "updatedAt": "2026-11-27T15:49:25.706Z",
+ "updatedAt": "2026-11-27T15:49:39.128Z",
  "items": [
+  {
+   "id": "cass-QSP50194",
+   "source": "cass-pen",
+   "sourceLabel": "Corte di Cassazione",
+   "kind": "Questione Cass. pen.",
+   "title": "Se, avverso la sentenza emessa a seguito di concordato in appello, siano deducibili con il ricorso per cassazione i vizi attinenti alla determinazione della pena non comportanti l'illegalità della stessa.",
+   "subtitle": "Sezioni Unite penale — Questione Penale Decisa del ricorso R.G. 9966/2026 ud. 09/07/2026",
+   "summary": "",
+   "url": "https://www.cortedicassazione.it/it/qsp_dettaglio.page?contentId=QSP50194",
+   "date": "2026-11-27",
+   "areas": [
+    "penale"
+   ],
+   "weight": 2,
+   "_ct": " Se, avverso la sentenza emessa a seguito di concordato in appello, siano deducibili con il ricorso per cassazione i vizi attinenti alla determinazione della pena non comportanti l'illegalità della stessa.",
+   "_fa": [
+    "penale"
+   ],
+   "firstSeen": "2026-11-27T15:49:39.128Z"
+  },
+  {
+   "id": "cass-QSP47543",
+   "source": "cass-pen",
+   "sourceLabel": "Corte di Cassazione",
+   "kind": "Questione Cass. pen.",
+   "title": "Se, in tema di impugnazione delle misure di prevenzione, a seguito dell'intervenuta modifica dell'art. 27 del d.lgs. 6 settembre 2011, n. 159, per effetto della legge 17 ottobre 2017, n. 161, il provvedimento di diniego della richiesta di revoca del sequestro…",
+   "subtitle": "Sezioni Unite penale — Questione Penale Decisa del ricorso R.G. 14166/2025 ud. 26/11/2026",
+   "summary": "",
+   "url": "https://www.cortedicassazione.it/it/qsp_dettaglio.page?contentId=QSP47543",
+   "date": "2026-11-27",
+   "areas": [
+    "penale"
+   ],
+   "weight": 2,
+   "_ct": " Se, in tema di impugnazione delle misure di prevenzione, a seguito dell'intervenuta modifica dell'art. 27 del d.lgs. 6 settembre 2011, n. 159, per effetto della legge 17 ottobre 2017, n. 161, il provvedimento di diniego della richiesta di revoca del sequestro prodromico alla confisca sia inoppugnabile oppure possa essere contestato mediante incidente di esecuzione ovvero attraverso ricorso alla corte d'appello o in cassazione secondo la disciplina generale di cui all'art. 10 d.lgs. n. 159 del 2011.",
+   "_fa": [
+    "penale"
+   ],
+   "firstSeen": "2026-11-27T15:49:39.128Z"
+  },
+  {
+   "id": "cass-SZP53947",
+   "source": "cass-pen",
+   "sourceLabel": "Corte di Cassazione",
+   "kind": "Sentenza Cass. pen.",
+   "title": "Concordato in appello - Ricorso per cassazione - Vizi attinenti alla determinazione della pena che non ne comportano l'illegalità - Deducibilità - Esclusione.",
+   "subtitle": "Sezioni Unite penale — Sentenza n. 41661 ud. 09/07/2026 - deposito del 26/11/2026",
+   "summary": "Impugnazioni",
+   "url": "https://www.cortedicassazione.it/it/penale_dettaglio.page?contentId=SZP53947",
+   "date": "2026-11-27",
+   "areas": [
+    "penale"
+   ],
+   "weight": 2,
+   "_ct": "Impugnazioni Concordato in appello - Ricorso per cassazione - Vizi attinenti alla determinazione della pena che non ne comportano l'illegalità - Deducibilità - Esclusione.",
+   "_fa": [
+    "penale"
+   ],
+   "firstSeen": "2026-11-27T15:49:39.128Z"
+  },
+  {
+   "id": "ade-TOn42026c59d649808dc8d876ef428d026138ab8",
+   "source": "ade",
+   "sourceLabel": "Agenzia delle Entrate",
+   "kind": "Principio di diritto",
+   "title": "Principio di diritto: Detrazione delle spese per interventi di recupero del patrimonio edilizio su parti comuni di un edificio sostenute per intero da un singolo condòmino - maggiorazione della percentuale di detrazione per interventi…",
+   "subtitle": "",
+   "summary": "",
+   "url": "https://www.agenziaentrate.gov.it/portale/documents/20143/10506302/PRINCIPIO+DI+DIRITTO_n.4_2026/c59d6498-08dc-8d87-6ef4-28d026138ab8",
+   "date": "2026-11-27",
+   "areas": [
+    "tributario"
+   ],
+   "weight": 1,
+   "firstSeen": "2026-11-27T15:49:39.128Z"
+  },
   {
    "id": "gu-26A06163",
    "source": "gu-sg",
@@ -116,6 +192,24 @@
    "_fa": [
     "civile"
    ]
+  },
+  {
+   "id": "gu-26A06125",
+   "source": "gu-sg",
+   "sourceLabel": "Gazzetta Ufficiale",
+   "kind": "Provvedimento",
+   "title": "Accordo ai sensi dell'articolo 4 del decreto legislativo 28 agosto 1997, n. 281, di modifica dell'Accordo rep. atti n. 65/CSR del 17 aprile 2019, relativo ai criteri di formazione degli ispettori dei centri di controllo…",
+   "subtitle": "Presidenza del consiglio dei ministri - conferenza permanente per i rapporti tra lo stato, le regioni e le province autonome di trento e bolzano - accordo 22 ottobre 2026 — G.U. Serie Generale n. 275 del 25-11-2026",
+   "summary": "",
+   "url": "https://www.gazzettaufficiale.it/eli/id/2026/11/25/26A06125/SG",
+   "date": "2026-11-25",
+   "areas": [
+    "infortunistica"
+   ],
+   "weight": 1,
+   "_ct": "PRESIDENZA DEL CONSIGLIO DEI MINISTRI - CONFERENZA PERMANENTE PER I RAPPORTI TRA LO STATO, LE REGIONI E LE PROVINCE AUTONOME DI TRENTO E BOLZANO ACCORDO 22 ottobre 2026 Accordo ai sensi dell'articolo 4 del decreto legislativo 28 agosto 1997, n. 281, di modifica dell'Accordo rep. atti n. 65/CSR del 17 aprile 2019, relativo ai criteri di formazione degli ispettori dei centri di controllo privati autorizzati all'effettuazione della revisione dei veicoli a motore e dei loro rimorchi, di cui all'articolo 13 del decreto 19 maggio 2017, n. 214, del Ministro delle infrastrutture e dei trasporti. (Rep. atti n. 168/CSR).",
+   "_fa": [],
+   "firstSeen": "2026-11-27T15:49:39.128Z"
   },
   {
    "id": "gu-26A06124",
