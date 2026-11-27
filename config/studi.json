@@ -1,5 +1,6 @@
 {
   "_istruzioni": "Un profilo per ogni studio cliente. 'aree' = materie seguite (penale, civile, famiglia, lavoro, tributario, amministrativo, immigrazione, professione, ue, generale). Modificando qui le aree, il sito del cliente si aggiorna da solo senza toccare il suo HTML. 'escludi' (facoltativo) = aree da non mostrare, salvo che la notizia riguardi anche la prima area.",
+  "sebastiano-asta": { "nome": "Studio Legale Sebastiano Asta (Palagonia)", "aree": ["civile", "penale", "famiglia", "lavoro"] },
   "rosario-riggio": { "nome": "Studio Legale Rosario Riggio (Ribera)", "aree": ["civile", "lavoro", "amministrativo", "crediti"] },
   "giuseppe-aiello": { "nome": "Studio Legale Giuseppe Aiello (Barrafranca)", "aree": ["infortunistica", "civile", "famiglia", "amministrativo", "crediti"], "escludi": ["lavoro"] },
   "salvatore-montalto": { "nome": "Studio Legale Salvatore Montalto (Grammichele)", "aree": ["successioni", "civile"], "escludi": ["lavoro"] },
