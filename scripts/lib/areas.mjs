@@ -79,6 +79,30 @@ export const AREAS = {
       '!donazioni', '!successioni e donazioni', '!debiti ereditari',
     ],
   },
+  infortunistica: {
+    label: 'Circolazione stradale e infortuni',
+    keywords: [
+      '!codice della strada', '!circolazione stradale', '!sicurezza stradale', '!patente di guida', '!=patente',
+      '!=patenti', '!sospensione della patente', '!revoca della patente', '!guida in stato di ebbrezza',
+      '!stato di ebbrezza', '!guida sotto l\'effetto', '!omicidio stradale', '!lesioni stradali',
+      '!lesioni personali stradali', '!sinistro stradale', '!sinistri stradali', '!incidente stradale',
+      '!incidenti stradali', '!r.c. auto', '!=rc auto', '!=rca', '!responsabilita civile automobilistica',
+      '!assicurazione obbligatoria', '!risarcimento diretto', '!fondo di garanzia per le vittime della strada',
+      '!infortunio sul lavoro', '!infortuni sul lavoro', '!malattia professionale', '!malattie professionali',
+      '!=inail', '!danno biologico', '!tabelle milanesi', '!micropermanent', '!autovelox', '!omissione di soccorso',
+      '!monopattin', '!strade e autostrade', '!circolazione dei veicoli', '!veicoli a motore',
+    ],
+  },
+  crediti: {
+    label: 'Recupero crediti ed esecuzioni',
+    keywords: [
+      '!decreto ingiuntivo', '!procedimento monitorio', '!ingiunzione di pagamento', '!recupero crediti',
+      '!recupero del credito', '!esecuzione forzata', '!pignoramento', '!atto di precetto', '!=precetto',
+      '!titolo esecutivo', '!opposizione all\'esecuzione', '!opposizione agli atti esecutivi',
+      '!ritardi di pagamento', '!ritardo nei pagamenti', '!transazioni commerciali', '!insinuazione al passivo',
+      '!espropriazione forzata', '!pignoramento presso terzi', '!vendita forzata', '!azione revocatoria',
+    ],
+  },
   famiglia: {
     label: 'Famiglia e minori',
     keywords: [

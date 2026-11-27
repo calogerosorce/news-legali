@@ -129,6 +129,10 @@ test('classificazione', () => {
   assert.ok(!classify('Ricorso della parte integralmente vittoriosa').includes('partecivile'));
   assert.ok(!classify('Misure di sicurezza - Libertà vigilata').includes('partecivile'));
   assert.ok(classify('Eredità giacente: poteri del curatore').includes('successioni'));
+  assert.ok(classify('Sospensione della patente per guida in stato di ebbrezza').includes('infortunistica'));
+  assert.ok(classify('Sinistro stradale e risarcimento diretto').includes('infortunistica'));
+  assert.ok(classify('Opposizione al decreto ingiuntivo e pignoramento presso terzi').includes('crediti'));
+  assert.ok(!classify('Il veicolo della pubblica amministrazione').includes('infortunistica'));
   assert.ok(classify('Rinuncia all\'eredità e debiti ereditari').includes('successioni'));
   assert.ok(!classify('Il funzionario è legato da vincolo di subordinazione').includes('successioni'));
 });

@@ -4,7 +4,7 @@
      Configurazione (attributi data-* del div .ln-news):
        data-studio    profilo dello studio sull'hub (config/studi.json): le materie si gestiscono
                       dall'hub, senza toccare questo HTML. Se manca o non risponde, usa data-areas.
-       data-areas     aree separate da virgola: penale, civile, bancario, partecivile, successioni, famiglia, lavoro, tributario,
+       data-areas     aree separate da virgola: penale, civile, bancario, partecivile, successioni, infortunistica, crediti, famiglia, lavoro, tributario,
                       amministrativo, immigrazione, professione, ue, generale
        data-max       quante notizie al massimo nel carosello (default 30)
        data-endpoint  base URL dell'hub (non cambiarlo)
@@ -97,7 +97,7 @@
 
 <script>
   (function () {
-    var LABELS = { penale: 'Penale', civile: 'Civile', bancario: 'Bancario', partecivile: 'Parte civile', successioni: 'Successioni', famiglia: 'Famiglia', lavoro: 'Lavoro',
+    var LABELS = { penale: 'Penale', civile: 'Civile', bancario: 'Bancario', partecivile: 'Parte civile', successioni: 'Successioni', infortunistica: 'Strada e infortuni', crediti: 'Recupero crediti', famiglia: 'Famiglia', lavoro: 'Lavoro',
       tributario: 'Tributario', amministrativo: 'Amministrativo', immigrazione: 'Immigrazione',
       professione: 'Giustizia', ue: 'Diritto UE', generale: 'Novità normative' };
     var CACHE = 'ln-news-cache-v1';

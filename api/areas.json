@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-27T08:49:45.665Z",
+ "updatedAt": "2026-11-27T15:49:25.706Z",
  "areas": [
   {
    "id": "penale",
@@ -30,6 +30,18 @@
    "label": "Successioni ed eredità",
    "count": 1,
    "url": "api/successioni.json"
+  },
+  {
+   "id": "infortunistica",
+   "label": "Circolazione stradale e infortuni",
+   "count": 1,
+   "url": "api/infortunistica.json"
+  },
+  {
+   "id": "crediti",
+   "label": "Recupero crediti ed esecuzioni",
+   "count": 0,
+   "url": "api/crediti.json"
   },
   {
    "id": "famiglia",
@@ -76,7 +88,7 @@
   {
    "id": "generale",
    "label": "Generale",
-   "count": 22,
+   "count": 21,
    "url": "api/generale.json"
   }
  ]
