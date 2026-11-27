@@ -53,6 +53,7 @@ function guHead(h) {
 }
 
 function guMinorKind(head) {
+  if (/conferenza (unificata|permanente)/i.test(head)) return /\bINTESA\b/i.test(head) ? 'Intesa Stato-Regioni' : 'Accordo Stato-Regioni';
   const m = head.toUpperCase().match(/\b(DECRETO|PROVVEDIMENTO|DELIBERA|DETERMINA|CIRCOLARE|ORDINANZA|COMUNICATO)\b/);
   if (!m) return 'Provvedimento';
   return m[1] === 'DECRETO' && /^MINISTERO/i.test(head) ? 'Decreto ministeriale' : sentenceCase(m[1].toLowerCase());
