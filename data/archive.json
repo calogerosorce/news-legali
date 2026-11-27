@@ -1,6 +1,42 @@
 {
- "updatedAt": "2026-11-27T19:52:34.022Z",
+ "updatedAt": "2026-11-27T19:52:48.502Z",
  "items": [
+  {
+   "id": "gu-26G00239",
+   "source": "gu-sg",
+   "sourceLabel": "Gazzetta Ufficiale",
+   "kind": "Legge",
+   "title": "Conversione in legge, con modificazioni, del decreto-legge 29 settembre 2026, n. 168, recante misure urgenti in materia di giustizia, di funzionalità del Ministero dell'interno e di impianti di interesse strategico…",
+   "subtitle": "Legge 27 novembre 2026, n. 218 — G.U. Serie Generale n. 277 del 27-11-2026",
+   "summary": "",
+   "url": "https://www.gazzettaufficiale.it/eli/id/2026/11/27/26G00239/SG",
+   "date": "2026-11-27",
+   "areas": [
+    "generale"
+   ],
+   "weight": 3,
+   "_ct": " LEGGE 27 novembre 2026, n. 218 Conversione in legge, con modificazioni, del decreto-legge 29 settembre 2026, n. 168, recante misure urgenti in materia di giustizia, di funzionalità del Ministero dell'interno e di impianti di interesse strategico nazionale.",
+   "_fa": [],
+   "firstSeen": "2026-11-27T19:52:48.502Z"
+  },
+  {
+   "id": "gu-26G00242",
+   "source": "gu-sg",
+   "sourceLabel": "Gazzetta Ufficiale",
+   "kind": "Legge",
+   "title": "Conversione in legge, con modificazioni, del decreto-legge 30 settembre 2026, n. 170, recante misure urgenti per garantire il regolare avvio dell'anno scolastico 2026/2027, per l'accompagnamento delle misure del Piano…",
+   "subtitle": "Legge 27 novembre 2026, n. 219 — G.U. Serie Generale n. 277 del 27-11-2026",
+   "summary": "",
+   "url": "https://www.gazzettaufficiale.it/eli/id/2026/11/27/26G00242/SG",
+   "date": "2026-11-27",
+   "areas": [
+    "immigrazione"
+   ],
+   "weight": 3,
+   "_ct": " LEGGE 27 novembre 2026, n. 219 Conversione in legge, con modificazioni, del decreto-legge 30 settembre 2026, n. 170, recante misure urgenti per garantire il regolare avvio dell'anno scolastico 2026/2027, per l'accompagnamento delle misure del Piano nazionale di ripresa e resilienza (PNRR) di competenza del Ministero dell'istruzione e del merito, per la promozione dell'integrazione degli studenti stranieri nell'ambito scolastico, nonchè in materia di formazione superiore e ricerca.",
+   "_fa": [],
+   "firstSeen": "2026-11-27T19:52:48.502Z"
+  },
   {
    "id": "cass-QSP50194",
    "source": "cass-pen",

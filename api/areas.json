@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-27T19:52:34.022Z",
+ "updatedAt": "2026-11-27T19:52:48.502Z",
  "areas": [
   {
    "id": "penale",
@@ -70,7 +70,7 @@
   {
    "id": "immigrazione",
    "label": "Immigrazione e cittadinanza",
-   "count": 6,
+   "count": 7,
    "url": "api/immigrazione.json"
   },
   {
@@ -88,7 +88,7 @@
   {
    "id": "generale",
    "label": "Generale",
-   "count": 21,
+   "count": 22,
    "url": "api/generale.json"
   }
  ]
